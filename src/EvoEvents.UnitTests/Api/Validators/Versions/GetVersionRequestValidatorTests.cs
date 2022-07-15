@@ -1,8 +1,7 @@
 ﻿using AutoFixture;
 using EvoEvents.API.Requests.Versions;
-using FluentAssertions;
+using FluentValidation.TestHelper;
 using NUnit.Framework;
-using System.Linq;
 
 namespace EvoEvents.UnitTests.Api.Validators.Versions
 {
@@ -25,9 +24,8 @@ namespace EvoEvents.UnitTests.Api.Validators.Versions
             var model = _fixture.Build<GetVersionRequest>()
                 .Without(x => x.Name)
                 .Create();
-            var result = _validator.Validate(model);
 
-            result.Errors.Any(error => error.PropertyName == "Name").Should().BeTrue();
+            _validator.TestValidate(model).ShouldHaveValidationErrorFor(model => model.Name);
         }
     }
 }
