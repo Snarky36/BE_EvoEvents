@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using EvoEvents.API.DependencyRegistration;
 using EvoEvents.Data;
 using EvoEvents.Business.Versions.Handlers;
+using FluentValidation.AspNetCore;
 
 namespace EvoEvents.API
 {
@@ -38,6 +39,9 @@ namespace EvoEvents.API
 
             services.AddControllers();
             services.AddMediatR(typeof(GetVersionQueryHandler));
+
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.RegisterServices();
             services.AddRouting(options => options.LowercaseUrls = true);
