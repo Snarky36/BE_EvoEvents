@@ -9,8 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EvoEvents.API.DependencyRegistration;
 using EvoEvents.Data;
-using EvoEvents.Business.Versions.Handlers;
+using EvoEvents.Business.Users.Handlers;
 using FluentValidation.AspNetCore;
+using EvoEvents.API.Utility;
+using EvoEvents.Business.Versions.Handlers;
 
 namespace EvoEvents.API
 {
@@ -41,7 +43,8 @@ namespace EvoEvents.API
             services.AddMediatR(typeof(GetVersionQueryHandler));
 
             services.AddMvc()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>())
+                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringTrimmer()));
 
             services.RegisterServices();
             services.AddRouting(options => options.LowercaseUrls = true);

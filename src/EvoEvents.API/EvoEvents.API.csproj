@@ -21,5 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EvoEvents.Business\EvoEvents.Business.csproj" />
     <ProjectReference Include="..\EvoEvents.Data\EvoEvents.Data.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 </Project>
