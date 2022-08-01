@@ -18,5 +18,7 @@ namespace Infrastructure.Utilities.ErrorStrings
         public static readonly string FirstNameFormatError = "First Name should have between 2 and 100 alpha characters, including '-' and ' '";
         public static readonly string LastNameFormatError = "Last Name should have between 2 and 100 alpha characters, including '-' and ' '";
         public static readonly string PasswordWhiteSpaceError = "Password should not have white spaces";
+        public static readonly string WrongCredentialsError = "Wrong credentials";
+        public static readonly string UniqueEmailError = "Email should be unique";
     }
 }

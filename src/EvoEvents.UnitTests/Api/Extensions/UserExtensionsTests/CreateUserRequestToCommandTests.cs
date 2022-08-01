@@ -8,9 +8,8 @@ namespace EvoEvents.UnitTests.Api.Controllers.UserControllerTests
     [TestFixture]
     public class CreateUserRequestToCommandTests
     {
-        
         [Test]
-        public async Task ShouldReturnCorrectCreateUserCommand()
+        public void ShouldReturnCorrectCreateUserCommand()
         {
             var request = new CreateUserRequest
             {

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using EvoEvents.API.Requests.Users;
+using EvoEvents.Business.Users.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,17 @@ namespace EvoEvents.API.Controllers
         }
 
         [HttpPost("create-user")]
-        public async Task<ActionResult<string>> CreateUser([FromBody] CreateUserRequest request)
+        public async Task<ActionResult<bool>> CreateUser([FromBody] CreateUserRequest request)
         {
             var result = await _mediator.Send(request.ToCommand());
+
+            return Ok(result);
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserInformation>> Login([FromBody] LoginRequest request)
+        {
+            var result = await _mediator.Send(request.ToQuery());
 
             return Ok(result);
         }

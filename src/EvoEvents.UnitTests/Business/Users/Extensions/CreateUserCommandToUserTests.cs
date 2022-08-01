@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace EvoEvents.UnitTests.Api.Controllers.UserControllerTests
 {
     [TestFixture]
-    public class CreateUserCommandToUserTest
+    public class CreateUserCommandToUserTests
     {
         [Test]
         public void ShouldReturnCorrectCreateUserCommand()

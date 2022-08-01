@@ -9,13 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Users\Models\" />
-    <Folder Include="Users\Queries\" />
     <Folder Include="Versions\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EvoEvents.Data\EvoEvents.Data.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using EvoEvents.API.Requests.Versions;
 using EvoEvents.Business.Users.Commands;
+using EvoEvents.Business.Users.Queries;
 
 namespace EvoEvents.API.Requests.Users
 {
@@ -14,6 +15,15 @@ namespace EvoEvents.API.Requests.Users
                 Email = request.Email,
                 Password = request.Password,
                 Company = request.Company
+            };
+        }
+
+        public static LoginQuery ToQuery(this LoginRequest request)
+        {
+            return new LoginQuery
+            {
+                Email = request.Email,
+                Password = request.Password,
             };
         }
     }

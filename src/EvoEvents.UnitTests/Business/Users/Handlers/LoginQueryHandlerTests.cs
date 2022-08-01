@@ -7,26 +7,27 @@ using System.Threading;
 using FluentAssertions;
 using EvoEvents.Data;
 using EvoEvents.Business.Users.Handlers;
-using EvoEvents.Business.Users.Commands;
 using EvoEvents.Data.Models.Users;
 using System;
+using EvoEvents.Business.Users.Queries;
+using Infrastructure.Utilities.ErrorStrings;
 
 namespace EvoEvents.UnitTests.Business.Users.Handlers
 {
     [TestFixture]
-    public class CreateUserCommandTests
+    public class LoginQueryHandlerTests
     {
         private Mock<EvoEventsContext> _context;
-        private CreateUserCommandHandler _handler;
-        private CreateUserCommand _request;
+        private LoginQueryHandler _handler;
+        private LoginQuery _query;
 
         [SetUp]
         public void Init()
         {
             _context = new Mock<EvoEventsContext>();
-            _handler = new CreateUserCommandHandler(_context.Object);
+            _handler = new LoginQueryHandler(_context.Object);
 
-            SetupValidRequest();
+            SetupQuery();
             SetupContext();
         }
 
@@ -38,20 +39,24 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
         }
 
         [Test]
-        public async Task ShouldCallSaveChangesAsync()
+        public async Task WhenUserIsFound_ShouldReturnCorrectUserInformation()
         {
-            var result = await _handler.Handle(_request, new CancellationToken());
-            _context.Verify( m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+            var result = await _handler.Handle(_query, new CancellationToken());
+ 
+            result.Email.Should().Be("asd@asd.com");
+            result.FirstName.Should().Be("absc");
+            result.LastName.Should().Be("asdfg");
+            result.Company.Should().Be("comnapi");
         }
 
         [Test]
-        public async Task WhenDuplicateEmail_ShouldThrowException()
+        public async Task WhenUserIsNotFound_ShouldThrowException()
         {
-            _request.Email = "asd@asd.com";
-            Func<Task> act = async () => await _handler.Handle(_request, new CancellationToken());
-            
+            _query.Email = "asd@kal.com";
+            Func<Task> act = async () => await _handler.Handle(_query, new CancellationToken());
+
             await act.Should().ThrowAsync<ApplicationException>()
-                        .WithMessage("Email should be unique");
+                        .WithMessage(ErrorMessages.WrongCredentialsError);
         }
 
         private void SetupContext()
@@ -74,14 +79,12 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
             _context.Setup(c => c.Users).ReturnsDbSet(users);
         }
 
-        private void SetupValidRequest()
+        private void SetupQuery()
         {
-            _request = new CreateUserCommand {
-                FirstName = "Ion",
-                LastName = "Snow",
-                Email = "ion@snow.com",
-                Company = "Accessa",
-                Password = "tradator"
+            _query = new LoginQuery
+            {
+                Email = "asd@asd.com",
+                Password = "123ASDF",
             };
         }
     }
