@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Infrastructure.Utilities.ErrorStrings;
+using Infrastructure.Utilities.Errors;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Users
@@ -19,29 +19,29 @@ namespace EvoEvents.API.Requests.Users
         {
             RuleFor(u => u.Email)
                 .NotEmpty()
-                .MinimumLength(7).WithMessage(ErrorMessages.EmailLengthError)
-                .MaximumLength(74).WithMessage(ErrorMessages.EmailLengthError)
-                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessages.EmailFormatError);
+                .MinimumLength(7).WithMessage(ErrorMessage.EmailLengthError)
+                .MaximumLength(74).WithMessage(ErrorMessage.EmailLengthError)
+                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.EmailFormatError);
             RuleFor(u => u.FirstName)
                 .NotEmpty()
-                .MinimumLength(2).WithMessage(ErrorMessages.FirstNameLengthError)
-                .MaximumLength(100).WithMessage(ErrorMessages.FirstNameLengthError)
-                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(ErrorMessages.FirstNameFormatError);
+                .MinimumLength(2).WithMessage(ErrorMessage.FirstNameLengthError)
+                .MaximumLength(100).WithMessage(ErrorMessage.FirstNameLengthError)
+                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(ErrorMessage.FirstNameFormatError);
             RuleFor(u => u.LastName)
                 .NotEmpty()
-                .MinimumLength(2).WithMessage(ErrorMessages.LastNameLengthError)
-                .MaximumLength(100).WithMessage(ErrorMessages.LastNameLengthError)
-                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(ErrorMessages.LastNameFormatError);
+                .MinimumLength(2).WithMessage(ErrorMessage.LastNameLengthError)
+                .MaximumLength(100).WithMessage(ErrorMessage.LastNameLengthError)
+                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(ErrorMessage.LastNameFormatError);
             RuleFor(u => u.Company)
                 .NotEmpty()
-                .MinimumLength(2).WithMessage(ErrorMessages.CompanyLengthError)
-                .MaximumLength(100).WithMessage(ErrorMessages.CompanyLengthError)
-                .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessages.CompanyFormatError);
+                .MinimumLength(2).WithMessage(ErrorMessage.CompanyLengthError)
+                .MaximumLength(100).WithMessage(ErrorMessage.CompanyLengthError)
+                .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessage.CompanyFormatError);
             RuleFor(u => u.Password)
                 .NotEmpty()
-                .MinimumLength(2).WithMessage(ErrorMessages.PasswordLengthError)
-                .MaximumLength(20).WithMessage(ErrorMessages.PasswordLengthError)
-                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessages.PasswordWhiteSpaceError);
+                .MinimumLength(2).WithMessage(ErrorMessage.PasswordLengthError)
+                .MaximumLength(20).WithMessage(ErrorMessage.PasswordLengthError)
+                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessage.PasswordWhiteSpaceError);
         }
     }
 }

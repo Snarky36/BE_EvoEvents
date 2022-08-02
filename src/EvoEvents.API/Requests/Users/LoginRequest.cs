@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Infrastructure.Utilities.ErrorStrings;
+using Infrastructure.Utilities.Errors;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Users
@@ -15,15 +15,15 @@ namespace EvoEvents.API.Requests.Users
         public LoginRequestValidator()
         {
             RuleFor(u => u.Email)
-                .NotEmpty().WithMessage(ErrorMessages.WrongCredentialsError)
-                .MinimumLength(7).WithMessage(ErrorMessages.WrongCredentialsError)
-                .MaximumLength(74).WithMessage(ErrorMessages.WrongCredentialsError)
-                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessages.WrongCredentialsError);
+                .NotEmpty().WithMessage(ErrorMessage.WrongCredentialsError)
+                .MinimumLength(7).WithMessage(ErrorMessage.WrongCredentialsError)
+                .MaximumLength(74).WithMessage(ErrorMessage.WrongCredentialsError)
+                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.WrongCredentialsError);
             RuleFor(u => u.Password)
-                .NotEmpty().WithMessage(ErrorMessages.WrongCredentialsError)
-                .MinimumLength(2).WithMessage(ErrorMessages.WrongCredentialsError)
-                .MaximumLength(20).WithMessage(ErrorMessages.WrongCredentialsError)
-                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessages.WrongCredentialsError);
+                .NotEmpty().WithMessage(ErrorMessage.WrongCredentialsError)
+                .MinimumLength(2).WithMessage(ErrorMessage.WrongCredentialsError)
+                .MaximumLength(20).WithMessage(ErrorMessage.WrongCredentialsError)
+                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessage.WrongCredentialsError);
         }
     }
 }

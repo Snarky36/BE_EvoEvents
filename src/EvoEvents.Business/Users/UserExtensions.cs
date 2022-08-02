@@ -1,7 +1,6 @@
 ﻿using EvoEvents.Business.Users.Commands;
 using EvoEvents.Business.Users.Models;
 using EvoEvents.Data.Models.Users;
-using Infrastructure.Utilities.ErrorStrings;
 using System;
 using System.Linq;
 

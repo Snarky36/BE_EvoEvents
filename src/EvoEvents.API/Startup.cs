@@ -13,6 +13,7 @@ using EvoEvents.Business.Users.Handlers;
 using FluentValidation.AspNetCore;
 using EvoEvents.API.Utility;
 using EvoEvents.Business.Versions.Handlers;
+using EvoEvents.API.Helpers;
 
 namespace EvoEvents.API
 {
@@ -73,6 +74,8 @@ namespace EvoEvents.API
             app.UseCors();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

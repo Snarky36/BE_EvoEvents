@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EvoEvents.Business.Users.Commands;
 using EvoEvents.Data;
-using Infrastructure.Utilities.ErrorStrings;
+using Infrastructure.Utilities.CustomException;
+using Infrastructure.Utilities.Errors;
 using MediatR;
 
 namespace EvoEvents.Business.Users.Handlers
@@ -36,7 +36,7 @@ namespace EvoEvents.Business.Users.Handlers
         {
             if (_context.Users.Any(u => u.Email == email))
             {
-                throw new ApplicationException(ErrorMessages.UniqueEmailError);
+                throw new CustomException(ErrorCode.User_UniqueEmail, ErrorMessage.UniqueEmailError);
             }
         }
     }

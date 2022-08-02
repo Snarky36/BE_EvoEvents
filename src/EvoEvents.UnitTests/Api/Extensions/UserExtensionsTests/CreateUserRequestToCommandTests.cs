@@ -1,7 +1,6 @@
 ﻿using EvoEvents.API.Requests.Users;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Threading.Tasks;
 
 namespace EvoEvents.UnitTests.Api.Controllers.UserControllerTests
 {

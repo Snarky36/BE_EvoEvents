@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Users\Models\" />
+    <Folder Include="Users\Queries\" />
     <Folder Include="Versions\Commands\" />
   </ItemGroup>
 

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Infrastructure.Utilities.ErrorStrings
+﻿namespace Infrastructure.Utilities.Errors
 {
-    public static class ErrorMessages
+    public static class ErrorMessage
     {
         public static readonly string EmailLengthError = "Email should have between 7 and 74 characters";
         public static readonly string FirstNameLengthError = "First name should have between 2 and 100 characters";

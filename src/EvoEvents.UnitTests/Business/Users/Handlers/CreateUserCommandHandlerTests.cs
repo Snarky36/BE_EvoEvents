@@ -10,6 +10,9 @@ using EvoEvents.Business.Users.Handlers;
 using EvoEvents.Business.Users.Commands;
 using EvoEvents.Data.Models.Users;
 using System;
+using Infrastructure.Utilities.CustomException;
+using Infrastructure.Utilities.Errors;
+using System.Text.Json;
 
 namespace EvoEvents.UnitTests.Business.Users.Handlers
 {
@@ -48,10 +51,11 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
         public async Task WhenDuplicateEmail_ShouldThrowException()
         {
             _request.Email = "asd@asd.com";
+            var exceptionMessage = new CustomException(ErrorCode.User_UniqueEmail, ErrorMessage.UniqueEmailError).Message;
             Func<Task> act = async () => await _handler.Handle(_request, new CancellationToken());
-            
-            await act.Should().ThrowAsync<ApplicationException>()
-                        .WithMessage("Email should be unique");
+
+            await act.Should().ThrowAsync<CustomException>()
+                .WithMessage(exceptionMessage);
         }
 
         private void SetupContext()
