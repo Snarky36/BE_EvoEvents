@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvoEvents.Migrations.Migrations
 {
     [DbContext(typeof(EvoEventsContext))]
-    [Migration("20220801102355_CreateEventsStructure")]
-    partial class CreateEventsStructure
+    [Migration("20220802121305_CreateStructureForEvents")]
+    partial class CreateStructureForEvents
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,9 +73,6 @@ namespace EvoEvents.Migrations.Migrations
                     b.Property<int>("EventTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EventTypeLookupId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaxNoAttendees")
                         .HasColumnType("int");
 
@@ -86,7 +83,7 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventTypeLookupId");
+                    b.HasIndex("EventTypeId");
 
                     b.ToTable("Events");
                 });
@@ -187,11 +184,13 @@ namespace EvoEvents.Migrations.Migrations
 
             modelBuilder.Entity("EvoEvents.Data.Models.Events.Event", b =>
                 {
-                    b.HasOne("EvoEvents.Data.Models.Events.EventTypeLookup", "EventTypeLookup")
+                    b.HasOne("EvoEvents.Data.Models.Events.EventTypeLookup", "EventType")
                         .WithMany()
-                        .HasForeignKey("EventTypeLookupId");
+                        .HasForeignKey("EventTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("EventTypeLookup");
+                    b.Navigation("EventType");
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Users.UserDetail", b =>

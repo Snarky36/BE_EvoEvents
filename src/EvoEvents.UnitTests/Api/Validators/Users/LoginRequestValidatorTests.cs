@@ -10,14 +10,12 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
     public class LoginRequestValidatorTests
     {
         private LoginRequestValidator _validator;
-        private IFixture _fixture;
         private LoginRequest _request;
 
         [SetUp]
         public void Init()
         {
             _validator = new LoginRequestValidator();
-            _fixture = new Fixture();
             SetupRequest();
         }
 

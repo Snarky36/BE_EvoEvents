@@ -4,7 +4,7 @@
 
 namespace EvoEvents.Migrations.Migrations
 {
-    public partial class CreateEventsStructure : Migration
+    public partial class CreateStructureForEvents : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,17 +29,17 @@ namespace EvoEvents.Migrations.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     MaxNoAttendees = table.Column<int>(type: "int", nullable: false),
-                    EventTypeId = table.Column<int>(type: "int", nullable: false),
-                    EventTypeLookupId = table.Column<int>(type: "int", nullable: true)
+                    EventTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_EventTypeLookups_EventTypeLookupId",
-                        column: x => x.EventTypeLookupId,
+                        name: "FK_Events_EventTypeLookups_EventTypeId",
+                        column: x => x.EventTypeId,
                         principalTable: "EventTypeLookups",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -58,9 +58,9 @@ namespace EvoEvents.Migrations.Migrations
                 values: new object[] { 3, "Talk" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_EventTypeLookupId",
+                name: "IX_Events_EventTypeId",
                 table: "Events",
-                column: "EventTypeLookupId");
+                column: "EventTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
