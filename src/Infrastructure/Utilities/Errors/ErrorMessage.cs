@@ -20,5 +20,7 @@
         public static readonly string EventTypeIdOutOfBoundsError = "Event type Id is invalid";
         public static readonly string MaxNoAttendeesSizeError = "Max number of attendees should be between 1 and 100.000";
         public static readonly string MaxNoAttendeesFormatError = "Max number of attendees should be an integer";
+        public static readonly string InvalidIdValueError = "Id should be greater than 0";
+        public static readonly string IdNotFoundError = "Event with that id does not exist";
     }
 }

@@ -4,5 +4,6 @@
     {
         User_UniqueEmail = 100,
         User_WrongCredentials = 101,
+        Event_WrongId = 200
     }
 }

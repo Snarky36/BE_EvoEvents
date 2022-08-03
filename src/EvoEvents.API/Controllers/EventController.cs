@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using EvoEvents.API.Requests.Events;
 using EvoEvents.API.Requests.Users;
+using EvoEvents.Business.Events.Models;
+using EvoEvents.Data.Models.Events;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +23,14 @@ namespace EvoEvents.API.Controllers
         public async Task<ActionResult<bool>> CreateEvent([FromBody] CreateEventRequest request)
         {
             var result = await _mediator.Send(request.ToCommand());
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EventInformation>> ViewEvent([FromRoute] ViewEventRequest request)
+        {
+            var result = await _mediator.Send(request.ToQuery());
 
             return Ok(result);
         }

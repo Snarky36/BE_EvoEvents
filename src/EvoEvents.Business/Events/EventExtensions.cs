@@ -1,5 +1,7 @@
 ﻿using EvoEvents.Business.Events.Commands;
+using EvoEvents.Business.Events.Models;
 using EvoEvents.Data.Models.Events;
+using System.Linq;
 
 namespace EvoEvents.Business.Events
 {
@@ -8,12 +10,29 @@ namespace EvoEvents.Business.Events
         public static Event ToEvent(this CreateEventCommand command)
         {
             return new Event
-            { 
+            {
                 EventTypeId = command.EventType,
                 Name = command.Name,
                 Description = command.Description,
                 MaxNoAttendees = command.MaxNoAttendees
             };
+        }
+
+        public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events)
+        {
+            return events.Select(e => new EventInformation
+            {   
+                Id = e.Id,
+                Name = e.Name,
+                Description = e.Description,
+                EventType = e.EventType.Id,
+                MaxNoAttendees = e.MaxNoAttendees
+            });
+        }
+
+        public static IQueryable<Event> FilterById(this IQueryable<Event> events, int id)
+        {
+            return events.Where(u => u.Id == id);
         }
     }
 }
