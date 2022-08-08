@@ -1,5 +1,6 @@
 ﻿using EvoEvents.Business.Events;
 using EvoEvents.Business.Events.Commands;
+using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
 using NUnit.Framework;
@@ -33,7 +34,13 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                         Id = EventType.Movie,
                         Name = EventType.Movie.ToString()
                     },
-                    MaxNoAttendees = 10
+                    MaxNoAttendees = 10,
+                    Address = new Address
+                    {
+                        Location = "Strada Bisericii Sud",
+                        CityId = City.Milano,
+                        CountryId = Country.Italia
+                    }
                 }
             };
 
@@ -50,6 +57,13 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
             eventInformation.Description.Should().Be("super");
             eventInformation.EventType.Should().Be(EventType.Movie);
             eventInformation.MaxNoAttendees.Should().Be(10);
+            eventInformation.Address.Should().BeEquivalentTo(
+                new Address
+                {
+                    Location = "Strada Bisericii Sud",
+                    CityId = City.Milano,
+                    CountryId = Country.Italia
+                });
         }
     }
 }

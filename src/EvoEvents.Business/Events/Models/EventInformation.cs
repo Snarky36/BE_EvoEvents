@@ -1,4 +1,5 @@
-﻿using EvoEvents.Data.Models.Events;
+﻿using EvoEvents.Data.Models.Addresses;
+using EvoEvents.Data.Models.Events;
 using System;
 
 namespace EvoEvents.Business.Events.Models
@@ -10,5 +11,6 @@ namespace EvoEvents.Business.Events.Models
         public string Name { get; init; }
         public string Description { get; init; }
         public int MaxNoAttendees { get; init; }
+        public Address Address { get; init; }
     }
 }

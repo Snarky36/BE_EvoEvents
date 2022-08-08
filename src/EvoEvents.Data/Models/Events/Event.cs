@@ -1,4 +1,6 @@
-﻿namespace EvoEvents.Data.Models.Events
+﻿using EvoEvents.Data.Models.Addresses;
+
+namespace EvoEvents.Data.Models.Events
 {
     public class Event
     {
@@ -9,5 +11,6 @@
         public EventType EventTypeId { get; set; }
 
         public virtual EventTypeLookup EventType { get; set; }
+        public Address Address { get; set; } 
     }
 }

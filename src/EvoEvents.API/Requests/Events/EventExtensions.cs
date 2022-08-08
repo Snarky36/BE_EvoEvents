@@ -21,7 +21,10 @@ namespace EvoEvents.API.Requests.Events
                 EventType = request.EventType,
                 Name = request.Name,
                 Description = request.Description,
-                MaxNoAttendees = request.MaxNoAttendees
+                MaxNoAttendees = request.MaxNoAttendees,
+                City = request.City,
+                Country = request.Country,
+                Location = request.Location
             };
         }
     }

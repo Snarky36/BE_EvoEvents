@@ -22,5 +22,8 @@
         public static readonly string MaxNoAttendeesFormatError = "Max number of attendees should be an integer";
         public static readonly string InvalidIdValueError = "Id should be greater than 0";
         public static readonly string IdNotFoundError = "Event with that id does not exist";
+        public static readonly string AddressLocationLenghtError = "Address location should have between 10 and 50 characters";
+        public static readonly string AddressCityNullError = "Address city can't be null";
+        public static readonly string AddressCountryNullError = "Address country can't be null";
     }
 }

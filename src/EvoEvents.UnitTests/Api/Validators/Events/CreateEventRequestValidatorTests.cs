@@ -1,14 +1,9 @@
-﻿using AutoFixture;
-using EvoEvents.API.Requests.Events;
+﻿using EvoEvents.API.Requests.Events;
+using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentValidation.TestHelper;
 using Infrastructure.Utilities;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EvoEvents.UnitTests.Api.Validators.Events
 {
@@ -32,8 +27,51 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
                 Name = "EvoEvent",
                 Description = "este fain",
                 EventType = (EventType)2,
-                MaxNoAttendees = 10
+                MaxNoAttendees = 10,
+                Location = "Strada Bisericii Sud",
+                City = City.Milano,
+                Country = Country.Italia
             };
+        }
+
+        [Test]
+        public void WhenAddressLocationMissing_ShouldReturnError()
+        {
+            _request.Location = null;
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Location);
+        }
+
+        [Test]
+        public void WhenAddressLocationTooShort_ShouldReturnError()
+        {
+            _request.Location = PrimitiveGenerator.Alpha(2);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Location);
+        }
+
+        [Test]
+        public void WhenAddressLocationTooLong_ShouldReturnError()
+        {
+            _request.Location = PrimitiveGenerator.Alpha(51);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Location);
+        }
+
+        [Test]
+        public void WhenCityNotInEnum_ShouldReturnError()
+        {
+            _request.City = (City)(-2);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.City);
+        }
+
+        [Test]
+        public void WhenCountryNotInEnum_ShouldReturnError()
+        {
+            _request.Country = (Country)(-2);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Country);
         }
 
         [Test]

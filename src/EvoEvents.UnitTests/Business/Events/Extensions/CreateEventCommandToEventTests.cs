@@ -1,5 +1,6 @@
 ﻿using EvoEvents.Business.Events;
 using EvoEvents.Business.Events.Commands;
+using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
 using NUnit.Framework;
@@ -17,7 +18,10 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 Name = "EvoEvent",
                 Description = "foarte fain",
                 EventType = (EventType)2,
-                MaxNoAttendees = 10
+                MaxNoAttendees = 10,
+                Location = "Strada Bisericii Sud",
+                City = City.Milano,
+                Country = Country.Italia
             };
 
             var result = request.ToEvent();
@@ -26,6 +30,9 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
             result.Description.Should().Be(request.Description);
             result.EventTypeId.Should().Be(request.EventType);
             result.MaxNoAttendees.Should().Be(request.MaxNoAttendees);
+            result.Address.Location.Should().Be(request.Location);
+            result.Address.CountryId.Should().Be(request.Country);
+            result.Address.CityId.Should().Be(request.City);
         }
     }
 }

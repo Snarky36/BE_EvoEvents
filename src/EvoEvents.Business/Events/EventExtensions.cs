@@ -1,5 +1,6 @@
 ﻿using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Models;
+using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using System.Linq;
 
@@ -14,7 +15,13 @@ namespace EvoEvents.Business.Events
                 EventTypeId = command.EventType,
                 Name = command.Name,
                 Description = command.Description,
-                MaxNoAttendees = command.MaxNoAttendees
+                MaxNoAttendees = command.MaxNoAttendees,
+                Address = new Address
+                {
+                    CityId = command.City,
+                    CountryId = command.Country,
+                    Location = command.Location
+                }
             };
         }
 
@@ -26,13 +33,14 @@ namespace EvoEvents.Business.Events
                 Name = e.Name,
                 Description = e.Description,
                 EventType = e.EventType.Id,
-                MaxNoAttendees = e.MaxNoAttendees
+                MaxNoAttendees = e.MaxNoAttendees,
+                Address = e.Address
             });
         }
 
         public static IQueryable<Event> FilterById(this IQueryable<Event> events, int id)
         {
-            return events.Where(u => u.Id == id);
+            return events.Where(e => e.Id == id);
         }
     }
 }
