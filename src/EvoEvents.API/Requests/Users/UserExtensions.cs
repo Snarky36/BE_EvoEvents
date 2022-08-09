@@ -1,5 +1,4 @@
-﻿using EvoEvents.API.Requests.Versions;
-using EvoEvents.Business.Users.Commands;
+﻿using EvoEvents.Business.Users.Commands;
 using EvoEvents.Business.Users.Queries;
 
 namespace EvoEvents.API.Requests.Users
@@ -15,6 +14,19 @@ namespace EvoEvents.API.Requests.Users
                 Email = request.Email,
                 Password = request.Password,
                 Company = request.Company
+            };
+        }
+
+        public static UpdateUserCommand ToCommand(this UpdateUserRequest request)
+        {
+            return new UpdateUserCommand
+            {
+                Email = request.Email,
+                NewCompany = request.NewCompany,
+                NewFirstName = request.NewFirstName,
+                NewLastName = request.NewLastName,
+                Password = request.Password,
+                NewPassword = request.NewPassword
             };
         }
 

@@ -25,5 +25,6 @@
         public static readonly string AddressLocationLenghtError = "Address location should have between 10 and 50 characters";
         public static readonly string AddressCityNullError = "Address city can't be null";
         public static readonly string AddressCountryNullError = "Address country can't be null";
+        public static readonly string PasswordAndNewPasswordError = "The new and old password should be sent togheter";
     }
 }

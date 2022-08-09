@@ -32,5 +32,13 @@ namespace EvoEvents.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("update-user")]
+        public async Task<ActionResult<bool>> UpdateUser([FromBody] UpdateUserRequest request)
+        {
+            var result = await _mediator.Send(request.ToCommand());
+
+            return Ok(result);
+        }
     }
 }
