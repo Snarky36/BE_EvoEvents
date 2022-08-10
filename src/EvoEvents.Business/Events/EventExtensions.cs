@@ -1,4 +1,5 @@
-﻿using EvoEvents.Business.Events.Commands;
+﻿using EvoEvents.Business.Addresses;
+using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
@@ -34,7 +35,7 @@ namespace EvoEvents.Business.Events
                 Description = e.Description,
                 EventType = e.EventType.Id,
                 MaxNoAttendees = e.MaxNoAttendees,
-                Address = e.Address
+                Address = e.Address.ToAddressInformation()
             });
         }
 

@@ -1,5 +1,5 @@
-﻿using EvoEvents.Business.Events;
-using EvoEvents.Business.Events.Commands;
+﻿using EvoEvents.Business.Addresses.Models;
+using EvoEvents.Business.Events;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
@@ -58,11 +58,11 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
             eventInformation.EventType.Should().Be(EventType.Movie);
             eventInformation.MaxNoAttendees.Should().Be(10);
             eventInformation.Address.Should().BeEquivalentTo(
-                new Address
+                new AddressInformation
                 {
                     Location = "Strada Bisericii Sud",
-                    CityId = City.Milano,
-                    CountryId = Country.Italia
+                    City = City.Milano,
+                    Country = Country.Italia
                 });
         }
     }

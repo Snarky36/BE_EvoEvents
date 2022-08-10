@@ -1,7 +1,9 @@
-﻿using EvoEvents.Business.Events.Commands;
+﻿using EvoEvents.Business.Addresses.Models;
+using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Handlers;
 using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
+using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
 using Infrastructure.Utilities.CustomException;
@@ -50,6 +52,13 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             result.Description.Should().Be("super");
             result.EventType.Should().Be(EventType.Movie);
             result.MaxNoAttendees.Should().Be(10);
+            result.Address.Should().BeEquivalentTo(
+                new AddressInformation
+                {
+                    Location = "Strada Bisericii Sud",
+                    City = City.Milano,
+                    Country = Country.Italia
+                });
         }
 
         [Test]
@@ -68,7 +77,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             var events = new List<Event>
             {
                new Event
-                {
+               {
                     Id=1,
                     Name = "EvoEvent",
                     Description = "super",
@@ -77,8 +86,14 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                         Id = EventType.Movie,
                         Name = EventType.Movie.ToString()
                     },
-                    MaxNoAttendees = 10
-                }
+                    MaxNoAttendees = 10,
+                    Address = new Address
+                    {
+                        Location = "Strada Bisericii Sud",
+                        CityId = City.Milano,
+                        CountryId = Country.Italia
+                    }
+               }
             };
 
             _context.Setup(c => c.Events).ReturnsDbSet(events);
