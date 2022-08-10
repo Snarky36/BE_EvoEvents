@@ -3,6 +3,8 @@ using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EvoEvents.Business.Events
@@ -33,6 +35,19 @@ namespace EvoEvents.Business.Events
                 Id = e.Id,
                 Name = e.Name,
                 Description = e.Description,
+                EventType = e.EventType.Id,
+                MaxNoAttendees = e.MaxNoAttendees,
+                Address = e.Address.ToAddressInformation()
+            });
+        }
+
+        public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events, int descriptionMaxLength)
+        {
+            return events.Select(e => new EventInformation
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Description = e.Description.Substring(0, descriptionMaxLength),
                 EventType = e.EventType.Id,
                 MaxNoAttendees = e.MaxNoAttendees,
                 Address = e.Address.ToAddressInformation()

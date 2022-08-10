@@ -1,7 +1,5 @@
-﻿using EvoEvents.API.Requests.Versions;
-using EvoEvents.Business.Events.Commands;
+﻿using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Queries;
-using EvoEvents.Business.Users.Commands;
 
 namespace EvoEvents.API.Requests.Events
 {
@@ -12,6 +10,14 @@ namespace EvoEvents.API.Requests.Events
             return new ViewEventQuery
             {
                 Id = request.Id
+            };
+        }
+        public static ViewAllEventsQuery ToQuery(this ViewAllEventsRequest request)
+        {
+            return new ViewAllEventsQuery
+            {
+                PageNumber = request.PaginationModel.PageNumber,
+                ItemsPerPage = request.PaginationModel.ItemsPerPage
             };
         }
         public static CreateEventCommand ToCommand(this CreateEventRequest request)

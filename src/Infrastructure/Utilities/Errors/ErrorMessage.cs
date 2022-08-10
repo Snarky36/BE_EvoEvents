@@ -21,6 +21,8 @@
         public static readonly string MaxNoAttendeesSizeError = "Max number of attendees should be between 1 and 100.000";
         public static readonly string MaxNoAttendeesFormatError = "Max number of attendees should be an integer";
         public static readonly string InvalidIdValueError = "Id should be greater than 0";
+        public static readonly string InvalidPageNumberError = "Page number should exist and be greater than 0";
+        public static readonly string InvalidPageSizeError = "Page size should exist and be greater than 0";
         public static readonly string IdNotFoundError = "Event with that id does not exist";
         public static readonly string AddressLocationLenghtError = "Address location should have between 10 and 50 characters";
         public static readonly string AddressCityNullError = "Address city can't be null";

@@ -3,6 +3,7 @@ using EvoEvents.API.Requests.Events;
 using EvoEvents.API.Requests.Events.Reservations;
 using EvoEvents.API.Requests.Users;
 using EvoEvents.Business.Events.Models;
+using EvoEvents.Business.Shared.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,14 @@ namespace EvoEvents.API.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<EventInformation>> ViewEvent([FromRoute] ViewEventRequest request)
+        {
+            var result = await _mediator.Send(request.ToQuery());
+
+            return Ok(result);
+        }
+
+        [HttpPost("view-all-events")]
+        public async Task<ActionResult<PageInfo<EventInformation>>> ViewAllEvents([FromBody] ViewAllEventsRequest request)
         {
             var result = await _mediator.Send(request.ToQuery());
 
