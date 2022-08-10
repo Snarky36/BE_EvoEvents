@@ -4,6 +4,10 @@
     {
         User_UniqueEmail = 100,
         User_WrongCredentials = 101,
-        Event_WrongId = 200
+        User_NotFound = 102,
+
+        Event_NotFound = 200,
+
+        Reservation_UserAlreadyRegistered = 300
     }
 }

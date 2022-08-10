@@ -14,6 +14,7 @@ using FluentValidation.AspNetCore;
 using EvoEvents.API.Utility;
 using EvoEvents.Business.Versions.Handlers;
 using EvoEvents.API.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EvoEvents.API
 {
@@ -46,7 +47,7 @@ namespace EvoEvents.API
             services.AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringTrimmer()));
-
+            services.Configure<ApiBehaviorOptions>(options => options.SuppressInferBindingSourcesForParameters = true);
             services.RegisterServices();
             services.AddRouting(options => options.LowercaseUrls = true);
         }

@@ -1,13 +1,14 @@
 ﻿using EvoEvents.Data.Configurations.Addresses;
 using EvoEvents.Data.Configurations.ApplicationVersions;
 using EvoEvents.Data.Configurations.Events;
+using EvoEvents.Data.Configurations.Reservations;
 using EvoEvents.Data.Configurations.Users;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.ApplicationVersions;
 using EvoEvents.Data.Models.Events;
+using EvoEvents.Data.Models.Reservations;
 using EvoEvents.Data.Models.Users;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EvoEvents.Data
 {
@@ -26,7 +27,7 @@ namespace EvoEvents.Data
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<CityLookup> CityLookups { get; set; }
         public virtual DbSet<CountryLookup> CountryLookups { get; set; }
-
+        public virtual DbSet<Reservation> Reservations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ApplicationVersionConfiguration());
@@ -37,6 +38,7 @@ namespace EvoEvents.Data
             builder.ApplyConfiguration(new CityConfiguration());
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new AddressConfiguration());
+            builder.ApplyConfiguration(new ReservationConfiguration());
         }
     }
 }

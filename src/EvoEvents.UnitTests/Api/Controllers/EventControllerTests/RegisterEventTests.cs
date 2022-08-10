@@ -1,7 +1,6 @@
 ﻿using EvoEvents.API.Controllers;
-using EvoEvents.API.Requests.Events;
-using EvoEvents.Business.Events.Commands;
-using EvoEvents.Data.Models.Events;
+using EvoEvents.API.Requests.Events.Reservations;
+using EvoEvents.Business.Reservations.Commands;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +12,11 @@ using System.Threading.Tasks;
 namespace EvoEvents.UnitTests.Api.Controllers.EventControllerTests
 {
     [TestFixture]
-    public class CreateEventTests
+    public class RegisterEventTests
     {
         private EventController _controller;
         private Mock<IMediator> _mediator;
-        private CreateEventRequest _request;
+        private CreateReservationRequest _request;
 
         [SetUp]
         public void Init()
@@ -36,32 +35,33 @@ namespace EvoEvents.UnitTests.Api.Controllers.EventControllerTests
         }
 
         [Test]
-        public async Task ShouldSendCreateEventCommand()
+        public async Task ShouldSendCreateRegistrationCommand()
         {
-            _mediator.Setup(m => m.Send(It.IsAny<CreateEventCommand>(), It.IsAny<CancellationToken>()))
+            _mediator.Setup(m => m.Send(It.IsAny<CreateReservationCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new bool()));
 
-            var result = await _controller.CreateEvent(_request);
+            var result = await _controller.RegisterEvent(_request);
 
-            _mediator.Verify(m => m.Send(It.IsAny<CreateEventCommand>(), It.IsAny<CancellationToken>()), Times.Once);
+            _mediator.Verify(m => m.Send(It.IsAny<CreateReservationCommand>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]
         public async Task WhenRequestCompletes_ReturnStatusOk()
         {
-            var result = await _controller.CreateEvent(_request);
+            var result = await _controller.RegisterEvent(_request);
 
             result.Result.Should().BeOfType<OkObjectResult>();
         }
 
         private void CreateRequest()
         {
-            _request = new CreateEventRequest
+            _request = new CreateReservationRequest
             {
-                Name = "EvoEvent",
-                Description = "cel mai smecher summer party",
-                EventType = (EventType)3,
-                MaxNoAttendees = 15
+                EventId = 1,
+                RegistrationInformation=new RegistrationInformation{
+                    UserEmail="a@abc.com",
+                    AccompanyingPerson="a@abcd.com"
+                }
             };
         }
     }

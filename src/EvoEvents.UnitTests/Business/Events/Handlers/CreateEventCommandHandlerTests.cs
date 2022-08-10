@@ -43,8 +43,9 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             _context.Verify(m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
 
+
         private void SetupContext()
-        {
+        {   
             _context.Setup(c => c.Events).ReturnsDbSet(new List<Event> { });
         }
 

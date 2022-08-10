@@ -4,7 +4,7 @@ namespace EvoEvents.Data.Models.Events
 {
     public class Event
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int MaxNoAttendees { get; set; }

@@ -56,7 +56,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         public async Task WhenEventIsNotFound_ShouldThrowException()
         {
             _query.Id = 100000;
-            var exceptionMessage = new CustomException(ErrorCode.Event_WrongId, ErrorMessage.IdNotFoundError).Message;
+            var exceptionMessage = new CustomException(ErrorCode.Event_NotFound, ErrorMessage.IdNotFoundError).Message;
             Func<Task> act = async () => await _handler.Handle(_query, new CancellationToken());
 
             await act.Should().ThrowAsync<CustomException>()

@@ -41,7 +41,7 @@ namespace EvoEvents.Business.Events.Handlers
         {
             if (eventInformation == null)
             {
-                throw new CustomException(ErrorCode.Event_WrongId, ErrorMessage.IdNotFoundError);
+                throw new CustomException(ErrorCode.Event_NotFound, ErrorMessage.IdNotFoundError);
             }
         }
     }
