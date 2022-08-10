@@ -13,20 +13,20 @@ namespace EvoEvents.UnitTests.Api.Extensions.UserExtensionsTests
             var request = new UpdateUserRequest
             {
                 Email = "maria234@yahoo.com",
-                NewFirstName = "Maria",
-                NewLastName = "Oltean",
-                NewCompany = "Evozon",
-                Password = "maria123",
+                FirstName = "Maria",
+                LastName = "Oltean",
+                Company = "Evozon",
+                OldPassword = "maria123",
                 NewPassword = "maria1234"
             };
 
             var result = request.ToCommand();
 
             result.Email.Should().Be(request.Email);
-            result.NewFirstName.Should().Be(request.NewFirstName);
-            result.NewLastName.Should().Be(request.NewLastName);
-            result.NewCompany.Should().Be(request.NewCompany);
-            result.Password.Should().Be(request.Password);
+            result.FirstName.Should().Be(request.FirstName);
+            result.LastName.Should().Be(request.LastName);
+            result.Company.Should().Be(request.Company);
+            result.OldPassword.Should().Be(request.OldPassword);
             result.NewPassword.Should().Be(request.NewPassword);
         }
     }

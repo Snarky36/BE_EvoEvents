@@ -27,29 +27,23 @@ namespace EvoEvents.Business.Users.Handlers
             UpdateUser(command, user);
 
             return await _context.SaveChangesAsync() > 0;
-
         }
 
         private User GetUser(UpdateUserCommand command)
         {
-            if (command.Password is not null)
-            {
-                return _context.Users.Include(u => u.Information).FirstOrDefault(u => u.Email == command.Email && u.Password == command.Password);
-            }
-            return _context.Users.Include(u => u.Information).FirstOrDefault(u => u.Email == command.Email);
+            return _context.Users
+                .Include(u => u.Information) 
+                .FirstOrDefault(u => u.Email == command.Email && ((command.OldPassword != null) ? u.Password == command.OldPassword : true));
         }
 
         private void UpdateUser(UpdateUserCommand request, User user)
         {
-            if (request.Password is not null)
-            {
-                user.Password = request.NewPassword;
-            }
+            user.Password = (request.OldPassword is not null) ? request.NewPassword : user.Password;
             user.Information = new UserDetail
             {
-                FirstName = request.NewFirstName,
-                LastName = request.NewLastName,
-                Company = request.NewCompany
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Company = request.Company
             };
         }
 

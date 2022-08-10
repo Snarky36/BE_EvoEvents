@@ -22,10 +22,10 @@ namespace EvoEvents.API.Requests.Users
             return new UpdateUserCommand
             {
                 Email = request.Email,
-                NewCompany = request.NewCompany,
-                NewFirstName = request.NewFirstName,
-                NewLastName = request.NewLastName,
-                Password = request.Password,
+                Company = request.Company,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                OldPassword = request.OldPassword,
                 NewPassword = request.NewPassword
             };
         }

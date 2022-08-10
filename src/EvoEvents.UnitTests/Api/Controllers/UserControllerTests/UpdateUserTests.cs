@@ -58,10 +58,10 @@ namespace EvoEvents.UnitTests.Api.Controllers.UserControllerTests
             _request = new UpdateUserRequest
             {
                 Email = "maria234@yahoo.com",
-                NewFirstName = "Maria",
-                NewLastName = "Oltean",
-                NewCompany = "Evozon",
-                Password = "maria123",
+                FirstName = "Maria",
+                LastName = "Oltean",
+                Company = "Evozon",
+                OldPassword = "maria123",
                 NewPassword = "maria1234"
             };
         }

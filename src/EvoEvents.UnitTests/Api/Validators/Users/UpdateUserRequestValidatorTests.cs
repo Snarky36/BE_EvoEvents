@@ -26,36 +26,36 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
             _request = new UpdateUserRequest
             {
                 Email = "maria234@yahoo.com",
-                NewFirstName = "Maria",
-                NewLastName = "Oltean",
-                NewCompany = "Evozon",
-                Password = "maria123",
+                FirstName = "Maria",
+                LastName = "Oltean",
+                Company = "Evozon",
+                OldPassword = "maria123",
                 NewPassword = "maria1234"
             };
         }
 
         [Test]
-        public void WhenNewFirstNameMissing_ShouldReturnError()
+        public void WhenFirstNameMissing_ShouldReturnError()
         {
-            _request.NewFirstName = null;
+            _request.FirstName = null;
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewFirstName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.FirstName);
         }
 
         [Test]
-        public void WhenNewLastNameMissing_ShouldReturnError()
+        public void WhenLastNameMissing_ShouldReturnError()
         {
-            _request.NewLastName = null;
+            _request.LastName = null;
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewLastName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.LastName);
         }
 
         [Test]
-        public void WhenNewCompanyMissing_ShouldReturnError()
+        public void WhenCompanyMissing_ShouldReturnError()
         {
-            _request.NewCompany = null;
+            _request.Company = null;
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewCompany);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Company);
         }
 
         [Test]
@@ -67,27 +67,43 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
         }
 
         [Test]
-        public void WhenNewFirstNameTooShort_ShouldReturnError()
+        public void WhenOldPasswordMissing_ShouldReturnError()
         {
-            _request.NewFirstName = PrimitiveGenerator.Alpha(1);
+            _request.OldPassword = null;
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewFirstName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request);
         }
 
         [Test]
-        public void WhenNewLastNameTooShort_ShouldReturnError()
+        public void WhenNewPasswordMissing_ShouldReturnError()
         {
-            _request.NewLastName = PrimitiveGenerator.Alpha(1);
+            _request.NewPassword = null;
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewLastName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request);
         }
 
         [Test]
-        public void WhenNewCompanyTooShort_ShouldReturnError()
+        public void WhenFirstNameTooShort_ShouldReturnError()
         {
-            _request.NewCompany = PrimitiveGenerator.Alpha(1);
+            _request.FirstName = PrimitiveGenerator.Alpha(1);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewCompany);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.FirstName);
+        }
+
+        [Test]
+        public void WhenLastNameTooShort_ShouldReturnError()
+        {
+            _request.LastName = PrimitiveGenerator.Alpha(1);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.LastName);
+        }
+
+        [Test]
+        public void WhenCompanyTooShort_ShouldReturnError()
+        {
+            _request.Company = PrimitiveGenerator.Alpha(1);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Company);
         }
 
         [Test]
@@ -99,11 +115,11 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
         }
 
         [Test]
-        public void WhenPasswordTooShort_ShouldReturnError()
+        public void WhenOldPasswordTooShort_ShouldReturnError()
         {
-            _request.Password = PrimitiveGenerator.Alphanumeric(1);
+            _request.OldPassword = PrimitiveGenerator.Alphanumeric(1);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Password);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.OldPassword);
         }
 
         [Test]
@@ -115,11 +131,11 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
         }
 
         [Test]
-        public void WhenNewFirstNameTooLong_ShouldReturnError()
+        public void WhenFirstNameTooLong_ShouldReturnError()
         {
-            _request.NewFirstName = PrimitiveGenerator.Alpha(101);
+            _request.FirstName = PrimitiveGenerator.Alpha(101);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewFirstName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.FirstName);
         }
 
         [Test]
@@ -131,27 +147,27 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
         }
 
         [Test]
-        public void WhenNewCompanyTooLong_ShouldReturnError()
+        public void WhenCompanyTooLong_ShouldReturnError()
         {
-            _request.NewCompany = PrimitiveGenerator.Alphanumeric(101);
+            _request.Company = PrimitiveGenerator.Alphanumeric(101);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewCompany);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Company);
         }
 
         [Test]
-        public void WhenNewLastNameTooLong_ShouldReturnError()
+        public void WhenLastNameTooLong_ShouldReturnError()
         {
-            _request.NewLastName = PrimitiveGenerator.Alpha(101);
+            _request.LastName = PrimitiveGenerator.Alpha(101);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewLastName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.LastName);
         }
 
         [Test]
-        public void WhenPasswordTooLong_ShouldReturnError()
+        public void WhenOldPasswordTooLong_ShouldReturnError()
         {
-            _request.Password = PrimitiveGenerator.Alphanumeric(101);
+            _request.OldPassword = PrimitiveGenerator.Alphanumeric(101);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Password);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.OldPassword);
         }
 
         [Test]
@@ -163,19 +179,19 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
         }
 
         [Test]
-        public void WhenNewFirstNameHasWrongFormat_ShouldReturnError()
+        public void WhenFirstNameHasWrongFormat_ShouldReturnError()
         {
-            _request.NewFirstName = PrimitiveGenerator.Alpha(10) + "1";
+            _request.FirstName = PrimitiveGenerator.Alpha(10) + "1";
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewFirstName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.FirstName);
         }
 
         [Test]
-        public void WhenNewLastNameHasWrongFormat_ShouldReturnError()
+        public void WhenLastNameHasWrongFormat_ShouldReturnError()
         {
-            _request.NewLastName = PrimitiveGenerator.Alphanumeric(10) + "1";
+            _request.LastName = PrimitiveGenerator.Alphanumeric(10) + "1";
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewLastName);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.LastName);
         }
 
         [Test]
@@ -187,19 +203,19 @@ namespace EvoEvents.UnitTests.Api.Validators.Users
         }
 
         [Test]
-        public void WhenNewCompanyHasWrongFormat_ShouldReturnError()
+        public void WhenCompanyHasWrongFormat_ShouldReturnError()
         {
-            _request.NewCompany = PrimitiveGenerator.Alpha(10) + "!";
+            _request.Company = PrimitiveGenerator.Alpha(10) + "!";
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.NewCompany);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Company);
         }
 
         [Test]
-        public void WhenPasswordHasWrongFormat_ShouldReturnError()
+        public void WhenOldPasswordHasWrongFormat_ShouldReturnError()
         {
-            _request.Password = PrimitiveGenerator.Alpha(10) + " ";
+            _request.OldPassword = PrimitiveGenerator.Alpha(10) + " ";
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Password);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.OldPassword);
         }
 
         [Test]

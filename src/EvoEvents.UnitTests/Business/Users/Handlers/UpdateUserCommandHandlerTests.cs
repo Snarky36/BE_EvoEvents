@@ -51,6 +51,15 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
         }
 
         [Test]
+        public async Task WhenPasswordIsNull_ShouldCallSaveChangesAsync()
+        {
+            _request.OldPassword = null;
+            _request.NewPassword = null;
+            var result = await _handler.Handle(_request, new CancellationToken());
+            _context.Verify(m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        }
+
+        [Test]
         public async Task ShouldCallSaveChangesAsync()
         {
             var result = await _handler.Handle(_request, new CancellationToken());
@@ -82,10 +91,10 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
             _request = new UpdateUserCommand
             {
                 Email = "maria234@yahoo.com",
-                NewFirstName = "Maria",
-                NewLastName = "Oltean",
-                NewCompany = "Evozon",
-                Password = "maria1234",
+                FirstName = "Maria",
+                LastName = "Oltean",
+                Company = "Evozon",
+                OldPassword = "maria1234",
                 NewPassword = "maria1234"
             };
         }
