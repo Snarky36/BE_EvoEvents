@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using Infrastructure.Utilities.Errors;
-using Infrastructure.Utilities.RegEx;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvoEvents.API.Requests.Events.Reservations
@@ -18,7 +17,7 @@ namespace EvoEvents.API.Requests.Events.Reservations
         public CreateReservationRequestValidator()
         {
             RuleFor(e => e.EventId).NotEmpty()
-                .GreaterThan(0).WithMessage(ErrorMessage.InvalidIdValueError);
+                .GreaterThan(0).WithMessage(EventErrorMessage.EventNotFound);
             RuleFor(e => e.RegistrationInformation)
                 .NotEmpty()
                 .SetValidator(new RegistrationInformationValidator());

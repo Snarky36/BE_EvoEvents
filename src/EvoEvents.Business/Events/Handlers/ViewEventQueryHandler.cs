@@ -4,6 +4,7 @@ using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -41,7 +42,7 @@ namespace EvoEvents.Business.Events.Handlers
         {
             if (eventInformation == null)
             {
-                throw new CustomException(ErrorCode.Event_NotFound, ErrorMessage.IdNotFoundError);
+                throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
             }
         }
     }

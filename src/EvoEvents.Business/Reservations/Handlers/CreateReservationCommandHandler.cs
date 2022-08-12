@@ -6,6 +6,7 @@ using EvoEvents.Data.Models.Reservations;
 using EvoEvents.Data.Models.Users;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
 using System.Linq;
 using System.Threading;
@@ -56,7 +57,7 @@ namespace EvoEvents.Business.Reservations.Handlers
 
             if (_event is null)
             {
-                throw new CustomException(ErrorCode.Event_NotFound, ErrorMessage.IdNotFoundError);
+                throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
             }
         }
 
@@ -66,7 +67,7 @@ namespace EvoEvents.Business.Reservations.Handlers
 
             if (_user is null)
             {
-                throw new CustomException(ErrorCode.User_NotFound, ErrorMessage.UserNotFoundError);
+                throw new CustomException(ErrorCode.User_NotFound, UserErrorMessage.UserNotFound);
             }
         }
 
@@ -74,7 +75,7 @@ namespace EvoEvents.Business.Reservations.Handlers
         {
             if (_context.Reservations.Any(r => r.EventId == _event.Id && r.UserId == _user.Id))
             {
-                throw new CustomException(ErrorCode.Reservation_UserAlreadyRegistered, ErrorMessage.UserAlreadyRegisteredError);
+                throw new CustomException(ErrorCode.Reservation_UserAlreadyRegistered, ReservationErrorMessage.UserAlreadyRegistered);
             }
         }
     }

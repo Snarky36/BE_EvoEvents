@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Users
@@ -15,13 +15,13 @@ namespace EvoEvents.API.Requests.Users
         public LoginRequestValidator()
         {
             RuleFor(u => u.Email)
-                .NotEmpty().WithMessage(ErrorMessage.WrongCredentialsError)
-                .Length(7, 74).WithMessage(ErrorMessage.WrongCredentialsError)
-                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.WrongCredentialsError);
+                .NotEmpty().WithMessage(UserErrorMessage.WrongCredentials)
+                .Length(7, 74).WithMessage(UserErrorMessage.WrongCredentials)
+                .Matches(RegularExpression.EmailFormat).WithMessage(UserErrorMessage.WrongCredentials);
             RuleFor(u => u.Password)
-                .NotEmpty().WithMessage(ErrorMessage.WrongCredentialsError)
-                .Length(2, 20).WithMessage(ErrorMessage.WrongCredentialsError)
-                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessage.WrongCredentialsError);
+                .NotEmpty().WithMessage(UserErrorMessage.WrongCredentials)
+                .Length(2, 20).WithMessage(UserErrorMessage.WrongCredentials)
+                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(UserErrorMessage.WrongCredentials);
         }
     }
 }

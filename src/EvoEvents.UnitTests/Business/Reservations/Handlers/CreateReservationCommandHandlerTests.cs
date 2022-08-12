@@ -8,6 +8,7 @@ using EvoEvents.Data.Models.Users;
 using FluentAssertions;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Moq;
 using Moq.EntityFrameworkCore;
 using NUnit.Framework;
@@ -70,7 +71,7 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
         public async Task WhenEventIsNotFound_ShouldThrowException()
         {
             _command.EventId = 100000;
-            var exceptionMessage = new CustomException(ErrorCode.Event_NotFound, ErrorMessage.IdNotFoundError).Message;
+            var exceptionMessage = new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound).Message;
             Func<Task> act = async () => await _handler.Handle(_command, new CancellationToken());
 
             await act.Should().ThrowAsync<CustomException>()
@@ -81,7 +82,7 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
         public async Task WhenUserIsNotFound_ShouldThrowException()
         {
             _command.UserEmail = "asd@kal.com";
-            var exceptionMessage = new CustomException(ErrorCode.User_NotFound, ErrorMessage.UserNotFoundError).Message;
+            var exceptionMessage = new CustomException(ErrorCode.User_NotFound, UserErrorMessage.UserNotFound).Message;
             Func<Task> act = async () => await _handler.Handle(_command, new CancellationToken());
 
             await act.Should().ThrowAsync<CustomException>()

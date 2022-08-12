@@ -13,6 +13,7 @@ using System;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
 using System.Text.Json;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 
 namespace EvoEvents.UnitTests.Business.Users.Handlers
 {
@@ -51,7 +52,7 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
         public async Task WhenDuplicateEmail_ShouldThrowException()
         {
             _request.Email = "asd@asd.com";
-            var exceptionMessage = new CustomException(ErrorCode.User_UniqueEmail, ErrorMessage.UniqueEmailError).Message;
+            var exceptionMessage = new CustomException(ErrorCode.User_UniqueEmail, UserErrorMessage.UniqueEmail).Message;
             Func<Task> act = async () => await _handler.Handle(_request, new CancellationToken());
 
             await act.Should().ThrowAsync<CustomException>()

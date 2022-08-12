@@ -5,6 +5,7 @@ using EvoEvents.Business.Users.Commands;
 using EvoEvents.Data;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
 
 namespace EvoEvents.Business.Users.Handlers
@@ -36,7 +37,7 @@ namespace EvoEvents.Business.Users.Handlers
         {
             if (_context.Users.Any(u => u.Email == email))
             {
-                throw new CustomException(ErrorCode.User_UniqueEmail, ErrorMessage.UniqueEmailError);
+                throw new CustomException(ErrorCode.User_UniqueEmail, UserErrorMessage.UniqueEmail);
             }
         }
     }

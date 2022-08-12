@@ -8,6 +8,7 @@ using EvoEvents.Data.Models.Events;
 using FluentAssertions;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Moq;
 using Moq.EntityFrameworkCore;
 using NUnit.Framework;
@@ -65,7 +66,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         public async Task WhenEventIsNotFound_ShouldThrowException()
         {
             _query.Id = 100000;
-            var exceptionMessage = new CustomException(ErrorCode.Event_NotFound, ErrorMessage.IdNotFoundError).Message;
+            var exceptionMessage = new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound).Message;
             Func<Task> act = async () => await _handler.Handle(_query, new CancellationToken());
 
             await act.Should().ThrowAsync<CustomException>()

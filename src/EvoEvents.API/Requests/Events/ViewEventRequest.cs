@@ -1,6 +1,6 @@
 ﻿using EvoEvents.Data.Models.Events;
 using FluentValidation;
-using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Events
@@ -14,7 +14,7 @@ namespace EvoEvents.API.Requests.Events
         public ViewEventRequestValidator()
         {
             RuleFor(x => x.Id).NotEmpty()
-                .GreaterThan(0).WithMessage(ErrorMessage.InvalidIdValueError);
+                .GreaterThan(0).WithMessage(EventErrorMessage.EventNotFound);
         }
     }
 }

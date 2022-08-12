@@ -12,6 +12,7 @@ using System;
 using EvoEvents.Business.Users.Queries;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 
 namespace EvoEvents.UnitTests.Business.Users.Handlers
 {
@@ -54,7 +55,7 @@ namespace EvoEvents.UnitTests.Business.Users.Handlers
         public async Task WhenUserIsNotFound_ShouldThrowException()
         {
             _query.Email = "asd@kal.com";
-            var exceptionMessage = new CustomException(ErrorCode.User_WrongCredentials, ErrorMessage.WrongCredentialsError).Message;
+            var exceptionMessage = new CustomException(ErrorCode.User_WrongCredentials, UserErrorMessage.WrongCredentials).Message;
             Func<Task> act = async () => await _handler.Handle(_query, new CancellationToken());
 
             await act.Should().ThrowAsync<CustomException>()

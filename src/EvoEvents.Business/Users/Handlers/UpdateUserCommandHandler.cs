@@ -3,6 +3,7 @@ using EvoEvents.Data;
 using EvoEvents.Data.Models.Users;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace EvoEvents.Business.Users.Handlers
         {
             if (user == null)
             {
-                throw new CustomException(ErrorCode.User_WrongCredentials, ErrorMessage.WrongCredentialsError);
+                throw new CustomException(ErrorCode.User_WrongCredentials, UserErrorMessage.WrongCredentials);
             }
         }
     }

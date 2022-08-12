@@ -1,7 +1,7 @@
 ﻿using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentValidation;
-using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Events
@@ -21,26 +21,26 @@ namespace EvoEvents.API.Requests.Events
         public CreateEventRequestValidator()
         {
             RuleFor(e => e.Name)
-                .NotEmpty().WithMessage(ErrorMessage.NameFormatError)
-                .Length(2, 100).WithMessage(ErrorMessage.NameFormatError)
-                .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessage.NameFormatError);
+                .NotEmpty().WithMessage(EventErrorMessage.NameFormat)
+                .Length(2, 100).WithMessage(EventErrorMessage.NameFormat)
+                .Matches(RegularExpression.Alphanumeric).WithMessage(EventErrorMessage.NameFormat);
             RuleFor(e => e.Description)
-                .Length(0, 2000).WithMessage(ErrorMessage.DescriptionFormatError)
-                .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessage.DescriptionFormatError);
+                .Length(0, 2000).WithMessage(EventErrorMessage.DescriptionFormat)
+                .Matches(RegularExpression.Alphanumeric).WithMessage(EventErrorMessage.DescriptionFormat);
             RuleFor(e => e.EventType)
-                .NotEmpty().WithMessage(ErrorMessage.EventTypeNullError)
+                .NotEmpty().WithMessage(EventErrorMessage.EventTypeNull)
                 .IsInEnum();
             RuleFor(e => e.MaxNoAttendees)
-                .NotNull().WithMessage(ErrorMessage.MaxNoAttendeesFormatError)
-                .InclusiveBetween(1, 100000).WithMessage(ErrorMessage.MaxNoAttendeesSizeError);
+                .NotNull().WithMessage(EventErrorMessage.MaxNoAttendeesFormat)
+                .InclusiveBetween(1, 100000).WithMessage(EventErrorMessage.MaxNoAttendeesFormat);
             RuleFor(e => e.Location)
-                .NotEmpty().WithMessage(ErrorMessage.AddressLocationLenghtError)
-                .Length(10, 50).WithMessage(ErrorMessage.AddressLocationLenghtError);
+                .NotEmpty().WithMessage(AddressErrorMessage.LocationFormat)
+                .Length(10, 50).WithMessage(AddressErrorMessage.LocationFormat);
             RuleFor(e => e.City)
-                .NotEmpty().WithMessage(ErrorMessage.EventTypeNullError)
+                .NotEmpty().WithMessage(EventErrorMessage.EventTypeNull)
                 .IsInEnum();
             RuleFor(e => e.Country)
-                .NotEmpty().WithMessage(ErrorMessage.EventTypeNullError)
+                .NotEmpty().WithMessage(EventErrorMessage.EventTypeNull)
                 .IsInEnum();
         }
     }

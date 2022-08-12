@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Events.Reservations
@@ -15,10 +15,10 @@ namespace EvoEvents.API.Requests.Events.Reservations
         public RegistrationInformationValidator()
         {  
             RuleFor(e => e.AccompanyingPerson)
-                .NotEqual(e => e.UserEmail).WithMessage(ErrorMessage.SameEmailError)
-                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.EmailFormatError);
+                .NotEqual(e => e.UserEmail).WithMessage(ReservationErrorMessage.DuplicateEmail)
+                .Matches(RegularExpression.EmailFormat).WithMessage(UserErrorMessage.EmailFormat);
             RuleFor(e => e.UserEmail).NotEmpty()
-                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.EmailFormatError);
+                .Matches(RegularExpression.EmailFormat).WithMessage(UserErrorMessage.EmailFormat);
         }
     }
 }

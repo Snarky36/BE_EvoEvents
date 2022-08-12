@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Infrastructure.Utilities.Errors;
+using Infrastructure.Utilities.Errors.ErrorMessages;
 using Infrastructure.Utilities.RegEx;
 
 namespace EvoEvents.API.Requests.Users
@@ -19,24 +19,24 @@ namespace EvoEvents.API.Requests.Users
         {
             RuleFor(u => u.Email)
                 .NotEmpty()
-                .Length(7, 74).WithMessage(ErrorMessage.EmailLengthError)
-                .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.EmailFormatError);
+                .Length(7, 74).WithMessage(UserErrorMessage.EmailFormat)
+                .Matches(RegularExpression.EmailFormat).WithMessage(UserErrorMessage.EmailFormat);
             RuleFor(u => u.FirstName)
                 .NotEmpty()
-                .Length(2, 100).WithMessage(ErrorMessage.FirstNameLengthError)
-                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(ErrorMessage.FirstNameFormatError);
+                .Length(2, 100).WithMessage(UserErrorMessage.FirstNameFormat)
+                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(UserErrorMessage.FirstNameFormat);
             RuleFor(u => u.LastName)
                 .NotEmpty()
-                .Length(2, 100).WithMessage(ErrorMessage.LastNameLengthError)
-                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(ErrorMessage.LastNameFormatError);
+                .Length(2, 100).WithMessage(UserErrorMessage.LastNameFormat)
+                .Matches(RegularExpression.AlphaWhiteSpacesDash).WithMessage(UserErrorMessage.LastNameFormat);
             RuleFor(u => u.Company)
                 .NotEmpty()
-                .Length(2, 100).WithMessage(ErrorMessage.CompanyLengthError)
-                .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessage.CompanyFormatError);
+                .Length(2, 100).WithMessage(UserErrorMessage.CompanyFormat)
+                .Matches(RegularExpression.Alphanumeric).WithMessage(UserErrorMessage.CompanyFormat);
             RuleFor(u => u.Password)
                 .NotEmpty()
-                .Length(2, 20).WithMessage(ErrorMessage.PasswordLengthError)
-                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessage.PasswordWhiteSpaceError);
+                .Length(2, 20).WithMessage(UserErrorMessage.PasswordFormat)
+                .Matches(RegularExpression.NoWhiteSpaces).WithMessage(UserErrorMessage.PasswordFormat);
         }
     }
 }
