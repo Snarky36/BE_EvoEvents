@@ -1,5 +1,6 @@
 ﻿using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Queries;
+using Infrastructure.Utilities;
 
 namespace EvoEvents.API.Requests.Events
 {
@@ -26,7 +27,7 @@ namespace EvoEvents.API.Requests.Events
             {
                 EventType = request.EventType,
                 Name = request.Name,
-                Description = request.Description,
+                Description = request.Description.NullIfEmpty(),
                 MaxNoAttendees = request.MaxNoAttendees,
                 City = request.City,
                 Country = request.Country,

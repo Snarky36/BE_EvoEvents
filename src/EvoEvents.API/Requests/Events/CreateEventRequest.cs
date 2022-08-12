@@ -22,19 +22,17 @@ namespace EvoEvents.API.Requests.Events
         {
             RuleFor(e => e.Name)
                 .NotEmpty().WithMessage(ErrorMessage.NameFormatError)
-                .MinimumLength(2).WithMessage(ErrorMessage.NameFormatError)
-                .MaximumLength(100).WithMessage(ErrorMessage.NameFormatError)
+                .Length(2, 100).WithMessage(ErrorMessage.NameFormatError)
                 .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessage.NameFormatError);
             RuleFor(e => e.Description)
-                .MaximumLength(2000).WithMessage(ErrorMessage.DescriptionFormatError)
+                .Length(0, 2000).WithMessage(ErrorMessage.DescriptionFormatError)
                 .Matches(RegularExpression.Alphanumeric).WithMessage(ErrorMessage.DescriptionFormatError);
             RuleFor(e => e.EventType)
                 .NotEmpty().WithMessage(ErrorMessage.EventTypeNullError)
                 .IsInEnum();
             RuleFor(e => e.MaxNoAttendees)
                 .NotNull().WithMessage(ErrorMessage.MaxNoAttendeesFormatError)
-                .GreaterThan(0).WithMessage(ErrorMessage.MaxNoAttendeesSizeError)
-                .LessThan(100000).WithMessage(ErrorMessage.MaxNoAttendeesSizeError);
+                .InclusiveBetween(1, 100000).WithMessage(ErrorMessage.MaxNoAttendeesSizeError);
             RuleFor(e => e.Location)
                 .NotEmpty().WithMessage(ErrorMessage.AddressLocationLenghtError)
                 .Length(10, 50).WithMessage(ErrorMessage.AddressLocationLenghtError);

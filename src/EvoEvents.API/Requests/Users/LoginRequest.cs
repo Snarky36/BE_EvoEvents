@@ -16,13 +16,11 @@ namespace EvoEvents.API.Requests.Users
         {
             RuleFor(u => u.Email)
                 .NotEmpty().WithMessage(ErrorMessage.WrongCredentialsError)
-                .MinimumLength(7).WithMessage(ErrorMessage.WrongCredentialsError)
-                .MaximumLength(74).WithMessage(ErrorMessage.WrongCredentialsError)
+                .Length(7, 74).WithMessage(ErrorMessage.WrongCredentialsError)
                 .Matches(RegularExpression.EmailFormat).WithMessage(ErrorMessage.WrongCredentialsError);
             RuleFor(u => u.Password)
                 .NotEmpty().WithMessage(ErrorMessage.WrongCredentialsError)
-                .MinimumLength(2).WithMessage(ErrorMessage.WrongCredentialsError)
-                .MaximumLength(20).WithMessage(ErrorMessage.WrongCredentialsError)
+                .Length(2, 20).WithMessage(ErrorMessage.WrongCredentialsError)
                 .Matches(RegularExpression.NoWhiteSpaces).WithMessage(ErrorMessage.WrongCredentialsError);
         }
     }
