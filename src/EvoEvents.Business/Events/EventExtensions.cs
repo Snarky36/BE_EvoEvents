@@ -35,7 +35,7 @@ namespace EvoEvents.Business.Events
                 Id = e.Id,
                 Name = e.Name,
                 Description = e.Description,
-                EventType = e.EventType.Id,
+                EventType = e.EventTypeId,
                 MaxNoAttendees = e.MaxNoAttendees,
                 Address = e.Address.ToAddressInformation()
             });
@@ -57,6 +57,15 @@ namespace EvoEvents.Business.Events
         public static IQueryable<Event> FilterById(this IQueryable<Event> events, int id)
         {
             return events.Where(e => e.Id == id);
+        }
+
+        public static IQueryable<Event> FilterByEventType(this IQueryable<Event> events, EventType eventType)
+        {
+            if(eventType is not EventType.None)
+            {
+                events = events.Where(e => e.EventTypeId == eventType);
+            }
+            return events;
         }
     }
 }

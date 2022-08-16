@@ -1,5 +1,4 @@
 ﻿using EvoEvents.Business.Addresses.Models;
-using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Handlers;
 using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
@@ -82,11 +81,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Id=1,
                     Name = "EvoEvent",
                     Description = "super",
-                    EventType = new EventTypeLookup
-                    {
-                        Id = EventType.Movie,
-                        Name = EventType.Movie.ToString()
-                    },
+                    EventTypeId = EventType.Movie,
                     MaxNoAttendees = 10,
                     Address = new Address
                     {

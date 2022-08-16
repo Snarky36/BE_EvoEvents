@@ -1,6 +1,6 @@
 ﻿using EvoEvents.Business.Events.Models;
-using EvoEvents.Business.Shared;
 using EvoEvents.Business.Shared.Models;
+using EvoEvents.Data.Models.Events;
 using MediatR;
 
 namespace EvoEvents.Business.Events.Queries
@@ -9,5 +9,8 @@ namespace EvoEvents.Business.Events.Queries
     {
         public int PageNumber { get; set; }
         public int ItemsPerPage { get; set; }
+        public string Email { get; set; }
+        public bool Registered { get; set; }
+        public EventType EventType { get; set; }
     }
 }

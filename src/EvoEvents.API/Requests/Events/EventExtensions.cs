@@ -18,7 +18,10 @@ namespace EvoEvents.API.Requests.Events
             return new ViewAllEventsQuery
             {
                 PageNumber = request.PaginationModel.PageNumber,
-                ItemsPerPage = request.PaginationModel.ItemsPerPage
+                ItemsPerPage = request.PaginationModel.ItemsPerPage,
+                Registered = request.Registered,
+                Email = request.Email,
+                EventType = request.EventType
             };
         }
         public static CreateEventCommand ToCommand(this CreateEventRequest request)
