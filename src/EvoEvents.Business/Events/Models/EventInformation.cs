@@ -13,6 +13,7 @@ namespace EvoEvents.Business.Events.Models
         public int MaxNoAttendees { get; init; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public byte[] EventImage { get; init; }
         public AddressInformation Address { get; init; }
     }
 }

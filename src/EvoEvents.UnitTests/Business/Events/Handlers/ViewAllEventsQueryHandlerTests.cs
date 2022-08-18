@@ -1,15 +1,18 @@
-﻿using EvoEvents.Business.Events.Handlers;
+﻿using EvoEvents.API.Requests.Events;
+using EvoEvents.Business.Events.Handlers;
 using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
 using Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using Moq.EntityFrameworkCore;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,6 +64,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             result.Items.First().Address.Location.Should().Be("Strada Bisericii Sud");
             result.Items.First().FromDate.Should().Be(_fromDate);
             result.Items.First().ToDate.Should().Be(_toDate);
+            result.Items.First().EventImage.Should().Equal(SetupFile().FileToByteArray());
         }
 
         [Test]
@@ -95,7 +99,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                         CountryId = Country.Italia
                     },
                     FromDate = _fromDate,
-                    ToDate = _toDate
+                    ToDate = _toDate,
+                    Image = SetupFile().FileToByteArray()
                 },
                new Event
                 {
@@ -115,7 +120,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                         CountryId = Country.Italia
                     },
                     FromDate = _fromDate,
-                    ToDate = _toDate
+                    ToDate = _toDate,
+                    Image = SetupFile().FileToByteArray()
                 }
             };
 
@@ -129,6 +135,28 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 PageNumber = 1,
                 ItemsPerPage = 1
             };
+        }
+        private byte[] SetupByteArray()
+        {
+            var base64Image = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=";
+            byte[] content = Convert.FromBase64String(base64Image);
+            return content;
+        }
+
+        private IFormFile SetupFile()
+        {
+            var fileMock = new Mock<IFormFile>();
+            byte[] content = SetupByteArray();
+            var fileName = "test.png";
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            writer.Write(content);
+            writer.Flush();
+            ms.Position = 0;
+            fileMock.Setup(_ => _.OpenReadStream()).Returns(ms);
+            fileMock.Setup(_ => _.FileName).Returns(fileName);
+            fileMock.Setup(_ => _.Length).Returns(ms.Length);
+            return fileMock.Object;
         }
     }
 }

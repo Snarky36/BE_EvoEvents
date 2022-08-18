@@ -4,8 +4,11 @@ using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentValidation.TestHelper;
 using Infrastructure.Utilities;
+using Microsoft.AspNetCore.Http;
+using Moq;
 using NUnit.Framework;
 using System;
+using System.IO;
 
 namespace EvoEvents.UnitTests.Api.Validators.Events
 {

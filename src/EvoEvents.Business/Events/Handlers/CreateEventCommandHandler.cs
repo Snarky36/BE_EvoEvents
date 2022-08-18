@@ -26,7 +26,6 @@ namespace EvoEvents.Business.Events.Handlers
 
             return await _context.SaveChangesAsync() > 0;
         }
-        
         private void ValidateEvent(CreateEventCommand command)
         {
             var eventAlreadyExisting = _context.Events
@@ -43,7 +42,7 @@ namespace EvoEvents.Business.Events.Handlers
         }
 
         private void AddEvent(CreateEventCommand command)
-        {
+        {   
             _context.Events.Add(command.ToEvent());
         }
     }

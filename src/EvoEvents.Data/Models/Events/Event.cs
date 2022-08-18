@@ -12,7 +12,8 @@ namespace EvoEvents.Data.Models.Events
         public EventType EventTypeId { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-
+        public byte[] Image {get;set;}
+	
         public virtual EventTypeLookup EventType { get; set; }
         public Address Address { get; set; } 
     }

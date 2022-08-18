@@ -22,7 +22,7 @@ namespace EvoEvents.API.Controllers
         }
 
         [HttpPost("create-event")]
-        public async Task<ActionResult<bool>> CreateEvent([FromBody] CreateEventRequest request)
+        public async Task<ActionResult<bool>> CreateEvent([FromForm] CreateEventRequest request)
         {
             var result = await _mediator.Send(request.ToCommand());
 

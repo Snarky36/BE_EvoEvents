@@ -28,6 +28,7 @@ namespace EvoEvents.Data
         public virtual DbSet<CityLookup> CityLookups { get; set; }
         public virtual DbSet<CountryLookup> CountryLookups { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ApplicationVersionConfiguration());

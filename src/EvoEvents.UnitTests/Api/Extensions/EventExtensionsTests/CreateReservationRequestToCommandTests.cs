@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace EvoEvents.UnitTests.Api.Extensions.EventExtensionsTests
 {
     [TestFixture]
-    public class CreateReservationRequestToCommand
+    public class CreateReservationRequestToCommandTests
     {
         [Test]
         public void ShouldReturnCorrectCreateReservationCommand()

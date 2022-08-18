@@ -16,6 +16,7 @@
         public static readonly string CompanyFormat = "Company should have between 2 and 100 alphanumeric characters";
        
         public static readonly string WrongCredentials = "Wrong credentials";
+
         public static readonly string UserNotFound = "User with that email does not exist";
     }
 }

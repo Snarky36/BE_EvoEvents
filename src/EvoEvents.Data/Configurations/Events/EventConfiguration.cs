@@ -14,6 +14,7 @@ namespace EvoEvents.Data.Configurations.Events
             builder.Property(u => u.MaxNoAttendees).IsRequired();
             builder.Property(u => u.FromDate).IsRequired().HasDefaultValueSql("getDate()");
             builder.Property(u => u.ToDate).IsRequired().HasDefaultValueSql("getDate()");
+            builder.Property(u => u.Image).HasColumnType("varbinary(max)");
         }
     }
 }
