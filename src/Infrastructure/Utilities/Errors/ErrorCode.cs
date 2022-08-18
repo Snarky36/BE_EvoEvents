@@ -9,6 +9,6 @@
         Event_NotFound = 200,
         Event_AlreadyCreated = 201,
 
-        Reservation_UserAlreadyRegistered = 300
+        Reservation_UserAlreadyRegistered = 300,
     }
 }

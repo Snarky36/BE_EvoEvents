@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EvoEvents.API.Requests.Events;
 using EvoEvents.API.Requests.Events.Reservations;
+using EvoEvents.API.Requests.Reservations;
 using EvoEvents.API.Requests.Users;
 using EvoEvents.Business.Events.Models;
 using EvoEvents.Business.Shared.Models;
@@ -46,6 +47,14 @@ namespace EvoEvents.API.Controllers
 
         [HttpPost("{eventid}/register")]
         public async Task<ActionResult<bool>> RegisterEvent(CreateReservationRequest request)
+        {
+            var result = await _mediator.Send(request.ToCommand());
+
+            return Ok(result);
+        }
+
+        [HttpPost("{eventid}/unregister")]
+        public async Task<ActionResult<bool>> UnregisterUser(UnregisterUserRequest request)
         {
             var result = await _mediator.Send(request.ToCommand());
 
