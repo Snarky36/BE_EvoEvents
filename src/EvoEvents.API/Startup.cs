@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EvoEvents.API.DependencyRegistration;
 using EvoEvents.Data;
-using EvoEvents.Business.Users.Handlers;
 using FluentValidation.AspNetCore;
 using EvoEvents.API.Utility;
 using EvoEvents.Business.Versions.Handlers;

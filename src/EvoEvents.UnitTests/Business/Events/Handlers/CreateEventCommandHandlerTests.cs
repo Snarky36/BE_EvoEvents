@@ -56,7 +56,9 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 Name = "EvoEvent",
                 Description = "super",
                 EventType = (EventType)2,
-                MaxNoAttendees = 10
+                MaxNoAttendees = 10,
+                FromDate = DateTime.Now.AddDays(1),
+                ToDate = DateTime.Now.AddDays(2)
             };
         }
     }

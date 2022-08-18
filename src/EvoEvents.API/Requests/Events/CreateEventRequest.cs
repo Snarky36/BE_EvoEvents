@@ -1,4 +1,5 @@
-﻿using EvoEvents.Data.Models.Addresses;
+﻿using EvoEvents.API.Shared.Models;
+using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentValidation;
 using Infrastructure.Utilities.Errors.ErrorMessages;
@@ -13,6 +14,7 @@ namespace EvoEvents.API.Requests.Events
         public string Description { get; set; }
         public int MaxNoAttendees { get; set; }
         public string Location { get; set; }
+        public DateRangeModel DateRangeModel { get; set; }
         public City City { get; set; }
         public Country Country { get; set; }
     }
@@ -42,6 +44,9 @@ namespace EvoEvents.API.Requests.Events
             RuleFor(e => e.Country)
                 .NotEmpty().WithMessage(EventErrorMessage.EventTypeNull)
                 .IsInEnum();
+            RuleFor(x => x.DateRangeModel)
+                .NotEmpty()
+                .SetValidator(new DateRangeModelValidator());
         }
     }
 }

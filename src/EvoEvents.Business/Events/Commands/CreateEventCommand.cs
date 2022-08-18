@@ -1,6 +1,7 @@
 ﻿using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using MediatR;
+using System;
 
 namespace EvoEvents.Business.Events.Commands
 {
@@ -11,6 +12,8 @@ namespace EvoEvents.Business.Events.Commands
         public string Description { get; set; } 
         public int MaxNoAttendees { get; set; }
         public string Location { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
         public City City { get; set; }
         public Country Country { get; set; }
     }

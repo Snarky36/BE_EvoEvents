@@ -1,5 +1,6 @@
 ﻿using EvoEvents.API.Controllers;
 using EvoEvents.API.Requests.Events;
+using EvoEvents.API.Shared.Models;
 using EvoEvents.Business.Events.Commands;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
@@ -7,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -61,7 +63,12 @@ namespace EvoEvents.UnitTests.Api.Controllers.EventControllerTests
                 Name = "EvoEvent",
                 Description = "cel mai smecher summer party",
                 EventType = (EventType)3,
-                MaxNoAttendees = 15
+                MaxNoAttendees = 15,
+                DateRangeModel = new DateRangeModel
+                {
+                    FromDate = DateTime.Now.AddDays(1),
+                    ToDate = DateTime.Now.AddDays(2)
+                }         
             };
         }
     }

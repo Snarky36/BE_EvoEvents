@@ -34,7 +34,9 @@ namespace EvoEvents.API.Requests.Events
                 MaxNoAttendees = request.MaxNoAttendees,
                 City = request.City,
                 Country = request.Country,
-                Location = request.Location
+                Location = request.Location,
+                FromDate = request.DateRangeModel.FromDate.ToUniversalTime(),
+                ToDate = request.DateRangeModel.ToDate.ToUniversalTime()
             };
         }
     }

@@ -8,6 +8,7 @@ using Infrastructure.Utilities;
 using Moq;
 using Moq.EntityFrameworkCore;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -21,6 +22,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         private Mock<EvoEventsContext> _context;
         private ViewAllEventsQueryHandler _handler;
         private ViewAllEventsQuery _query;
+        private DateTime _fromDate;
+        private DateTime _toDate;
         private string descriptionString = PrimitiveGenerator.Alphanumeric(160);
 
         [SetUp]
@@ -28,6 +31,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         {
             _context = new Mock<EvoEventsContext>();
             _handler = new ViewAllEventsQueryHandler(_context.Object);
+            _fromDate = DateTime.Now.AddDays(1);
+            _toDate = DateTime.Now.AddDays(2);
 
             SetupContext();
             SetupRequest();
@@ -54,6 +59,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             result.Items.First().Address.City.Should().Be(City.Milano);
             result.Items.First().Address.Country.Should().Be(Country.Italia);
             result.Items.First().Address.Location.Should().Be("Strada Bisericii Sud");
+            result.Items.First().FromDate.Should().Be(_fromDate);
+            result.Items.First().ToDate.Should().Be(_toDate);
         }
 
         [Test]
@@ -86,7 +93,9 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
                         CountryId = Country.Italia
-                    }
+                    },
+                    FromDate = _fromDate,
+                    ToDate = _toDate
                 },
                new Event
                 {
@@ -104,7 +113,9 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                         Location = "Strada Bisericii Sud2",
                         CityId = City.Milano,
                         CountryId = Country.Italia
-                    }
+                    },
+                    FromDate = _fromDate,
+                    ToDate = _toDate
                 }
             };
 

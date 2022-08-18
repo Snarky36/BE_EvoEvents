@@ -24,12 +24,16 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         private Mock<EvoEventsContext> _context;
         private ViewEventQueryHandler _handler;
         private ViewEventQuery _query;
+        private DateTime _fromDate;
+        private DateTime _toDate;
 
         [SetUp]
         public void Init()
         {
             _context = new Mock<EvoEventsContext>();
             _handler = new ViewEventQueryHandler(_context.Object);
+            _fromDate = DateTime.Now.AddDays(1);
+            _toDate = DateTime.Now.AddDays(2);
 
             SetupContext();
             SetupRequest();
@@ -59,6 +63,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     City = City.Milano,
                     Country = Country.Italia
                 });
+            result.FromDate.Should().Be(_fromDate);
+            result.ToDate.Should().Be(_toDate);
         }
 
         [Test]
@@ -88,7 +94,9 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
                         CountryId = Country.Italia
-                    }
+                    },
+                    FromDate = _fromDate,
+                    ToDate = _toDate
                }
             };
 

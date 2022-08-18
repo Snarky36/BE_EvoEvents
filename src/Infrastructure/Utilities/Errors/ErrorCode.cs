@@ -7,6 +7,7 @@
         User_NotFound = 102,
 
         Event_NotFound = 200,
+        Event_AlreadyCreated = 201,
 
         Reservation_UserAlreadyRegistered = 300
     }

@@ -4,6 +4,7 @@ using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
 
 namespace EvoEvents.UnitTests.Business.Events.Extensions
 {
@@ -21,7 +22,9 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
                 City = City.Milano,
-                Country = Country.Italia
+                Country = Country.Italia,
+                FromDate = DateTime.Now.AddDays(1),
+                ToDate = DateTime.Now.AddDays(2)
             };
 
             var result = request.ToEvent();
@@ -33,6 +36,8 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
             result.Address.Location.Should().Be(request.Location);
             result.Address.CountryId.Should().Be(request.Country);
             result.Address.CityId.Should().Be(request.City);
+            result.FromDate.Should().Be(request.FromDate);
+            result.ToDate.Should().Be(request.ToDate);
         }
     }
 }

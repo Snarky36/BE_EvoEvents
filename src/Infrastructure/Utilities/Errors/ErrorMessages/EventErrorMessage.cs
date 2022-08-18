@@ -11,5 +11,17 @@
         public static readonly string MaxNoAttendeesFormat = "Max number of attendees should be an integer between 1 and 100.000";
 
         public static readonly string EventNotFound = "Event with that id does not exist";
+
+        public static readonly string FromDateValue = "Starting Date can't be less than today's Date";
+
+        public static readonly string ToDateValue = "Ending Date can't be less then today's Date";
+
+        public static readonly string FromDateNull = "Starting Date must exist";
+
+        public static readonly string ToDateNull = "Ending Date must exist";
+
+        public static readonly string FromDateGraterThenToDate = "Ending date can't be before the starting date";
+
+        public static readonly string EventAlreadyCreated = "This event was already created";
     }
 }

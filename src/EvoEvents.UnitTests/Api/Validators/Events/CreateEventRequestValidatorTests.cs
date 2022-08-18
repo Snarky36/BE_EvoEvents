@@ -1,9 +1,11 @@
 ﻿using EvoEvents.API.Requests.Events;
+using EvoEvents.API.Shared.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentValidation.TestHelper;
 using Infrastructure.Utilities;
 using NUnit.Framework;
+using System;
 
 namespace EvoEvents.UnitTests.Api.Validators.Events
 {
@@ -30,7 +32,12 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
                 City = City.Milano,
-                Country = Country.Italia
+                Country = Country.Italia,
+                DateRangeModel = new DateRangeModel
+                {
+                    FromDate = DateTime.Now.AddDays(1),
+                    ToDate = DateTime.Now.AddDays(2)
+                }
             };
         }
 
@@ -128,6 +135,49 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
             _request.MaxNoAttendees = 10000001;
 
             _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.MaxNoAttendees);
+        }
+
+        [Test]
+        public void WhenFromDateIsMissing_ShouldReturnError()
+        {
+            _request.DateRangeModel.FromDate = default(DateTime);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.DateRangeModel.FromDate);
+        }
+
+        [Test]
+        public void WhenToDateIsMissing_ShouldReturnError()
+        {
+            _request.DateRangeModel.ToDate = default(DateTime);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.DateRangeModel.ToDate);
+        }
+
+        [Test]
+        public void WhenFromDateIsBeforeTodaysDate_ShouldReturnError()
+        {
+            _request.DateRangeModel.FromDate = DateTime.Now.AddDays(-1);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.DateRangeModel.FromDate);
+        }
+
+
+        [Test]
+        public void WhenToDateIsBeforeTodaysDate_ShouldReturnError()
+        {
+            _request.DateRangeModel.ToDate = DateTime.Now.AddDays(-1);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.DateRangeModel.ToDate);
+        }
+
+
+        [Test]
+        public void WhenToDateIsBeforeFromDate_ShouldReturnError()
+        {
+            _request.DateRangeModel.FromDate = DateTime.Now.AddDays(3);
+            _request.DateRangeModel.ToDate = DateTime.Now.AddDays(1);
+
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.DateRangeModel.ToDate);
         }
     }
 }
