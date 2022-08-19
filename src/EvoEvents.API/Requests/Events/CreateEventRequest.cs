@@ -48,6 +48,7 @@ namespace EvoEvents.API.Requests.Events
                 .NotEmpty().WithMessage(EventErrorMessage.EventTypeNull)
                 .IsInEnum();
             RuleFor(x => x.DateRangeModel)
+                .NotEmpty()
                 .SetValidator(new DateRangeModelValidator());
             RuleFor(e => e.EventImage)
                 .SetValidator(new ImageValidator());
@@ -59,7 +60,6 @@ namespace EvoEvents.API.Requests.Events
         public ImageValidator()
         {
             RuleFor(x => x.ContentType)
-                .NotNull()
                 .Must(x => x.Equals("image/jpeg") || x.Equals("image/jpg") || x.Equals("image/png"))
                 .WithMessage(EventErrorMessage.InvalidFileType);
             RuleFor(x => x.Length)

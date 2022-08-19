@@ -59,6 +59,24 @@ namespace EvoEvents.Business.Reservations.Handlers
             {
                 throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
             }
+            
+            ValidateCapacity(command);
+        }
+
+        private void ValidateCapacity(CreateReservationCommand command)
+        {
+            var currentNoOfParticipantsWithAccompanyingPerson = _context.Reservations
+                                                                            .Where(e => e.EventId == command.EventId)
+                                                                            .Count(r => r.AccompanyingPersonEmail != null);
+            var currentNoOfReservations = _context.Reservations.Where(e => e.EventId == command.EventId)
+                                                        .Count();
+            var currentNoOfParticipants = currentNoOfParticipantsWithAccompanyingPerson + currentNoOfReservations;
+
+            if ((command.AccompanyingPersonEmail is not null && _event.MaxNoAttendees - currentNoOfParticipants < 2)
+                || (command.AccompanyingPersonEmail is null && _event.MaxNoAttendees - currentNoOfParticipants < 1))
+            {
+                throw new CustomException(ErrorCode.Event_CapacityExceeded, EventErrorMessage.CapacityExceeded);
+            }
         }
 
         private void ValidateUser(CreateReservationCommand command)

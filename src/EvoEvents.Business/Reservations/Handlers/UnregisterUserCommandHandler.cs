@@ -39,6 +39,11 @@ namespace EvoEvents.Business.Reservations.Handlers
 
             var reservation = _context.Reservations.Where(r => r.UserId == userId && r.EventId == command.EventId).SingleOrDefault();
 
+            if (reservation is null)
+            {
+                throw new CustomException(ErrorCode.Reservation_NotFound, ReservationErrorMessage.ReservationNotFound);
+            }
+
             _context.Reservations.Remove(reservation);
         }
 

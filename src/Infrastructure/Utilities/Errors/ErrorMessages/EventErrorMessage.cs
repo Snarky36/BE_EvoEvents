@@ -13,6 +13,8 @@
         public static readonly string EventNotFound = "Event with that id does not exist";
 
         public static readonly string FromDateValue = "Starting Date can't be less than today's Date";
+        
+        public static readonly string CapacityExceeded = "There are no more available places for this event";
 
         public static readonly string FileSizeTooLarge = "File size is larger than allowed";
 

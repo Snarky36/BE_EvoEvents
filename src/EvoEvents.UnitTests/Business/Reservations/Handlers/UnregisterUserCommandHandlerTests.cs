@@ -86,7 +86,9 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                         Id = EventType.Movie,
                         Name = EventType.Movie.ToString()
                     },
-                    MaxNoAttendees = 10
+                    MaxNoAttendees = 10,
+                    FromDate = DateTime.UtcNow.AddDays(2),
+                    ToDate = DateTime.UtcNow.AddDays(5)
                 }
             };
 
@@ -116,7 +118,7 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                     AccompanyingPersonEmail = null
                 }
             };
-            _context.Setup(c => c.Reservations).ReturnsDbSet(new List<Reservation> { });
+            _context.Setup(c => c.Reservations).ReturnsDbSet(reservation);
             _context.Setup(c => c.Users).ReturnsDbSet(_users);
             _context.Setup(c => c.Events).ReturnsDbSet(events);
         }

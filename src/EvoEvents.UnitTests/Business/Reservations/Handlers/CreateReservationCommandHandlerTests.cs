@@ -103,7 +103,8 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                         Id = EventType.Movie,
                         Name = EventType.Movie.ToString()
                     },
-                    MaxNoAttendees = 10
+                    MaxNoAttendees = 10,
+                    Reservations = new List<Reservation>()
                 }
             };
 

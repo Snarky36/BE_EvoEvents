@@ -49,9 +49,13 @@ namespace EvoEvents.API.Requests.Events
         public static byte[] FileToByteArray(this IFormFile file)
         {
             using(var memoryStream = new MemoryStream())
-            {
-                file.CopyTo(memoryStream);
-                return memoryStream.ToArray();
+            {   
+                if(file is not null)
+                {
+                    file.CopyTo(memoryStream);
+                    return memoryStream.ToArray();
+                }
+                return null;
             }
         }
     }

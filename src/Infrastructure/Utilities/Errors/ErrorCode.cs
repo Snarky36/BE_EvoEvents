@@ -8,7 +8,9 @@
 
         Event_NotFound = 200,
         Event_AlreadyCreated = 201,
+        Event_CapacityExceeded = 202,
 
         Reservation_UserAlreadyRegistered = 300,
+        Reservation_NotFound = 301
     }
 }
