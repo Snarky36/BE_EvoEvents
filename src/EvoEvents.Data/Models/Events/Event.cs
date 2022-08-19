@@ -1,5 +1,7 @@
 ﻿using EvoEvents.Data.Models.Addresses;
+using EvoEvents.Data.Models.Reservations;
 using System;
+using System.Collections.Generic;
 
 namespace EvoEvents.Data.Models.Events
 {
@@ -15,6 +17,7 @@ namespace EvoEvents.Data.Models.Events
         public byte[] Image {get;set;}
 	
         public virtual EventTypeLookup EventType { get; set; }
-        public Address Address { get; set; } 
+        public Address Address { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

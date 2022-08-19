@@ -10,7 +10,7 @@ namespace EvoEvents.Business.Events.Queries
         public int PageNumber { get; set; }
         public int ItemsPerPage { get; set; }
         public string Email { get; set; }
-        public bool Registered { get; set; }
+        public bool Attending { get; set; }
         public EventType EventType { get; set; }
     }
 }

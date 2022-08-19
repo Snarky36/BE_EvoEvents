@@ -1,6 +1,5 @@
 ﻿using EvoEvents.Business.Events.Models;
 using EvoEvents.Business.Events.Queries;
-using EvoEvents.Business.Reservations;
 using EvoEvents.Business.Shared;
 using EvoEvents.Business.Shared.Models;
 using EvoEvents.Business.Users;
@@ -21,7 +20,6 @@ namespace EvoEvents.Business.Events.Handlers
     public class ViewAllEventsQueryHandler : IRequestHandler<ViewAllEventsQuery, PageInfo<EventInformation>>
     {
         private readonly EvoEventsContext _context;
-        private IQueryable<Event> _events;
         private User _user;
 
         public ViewAllEventsQueryHandler(EvoEventsContext context)
@@ -31,38 +29,32 @@ namespace EvoEvents.Business.Events.Handlers
 
         public async Task<PageInfo<EventInformation>> Handle(ViewAllEventsQuery query, CancellationToken cancellationToken)
         {
-            _events = _context.Events;
+            ValidateUser(query.Email);
 
-            ApplyFilters(query);
+            var events = GetEvents();
 
-            return await GetPaginatedEvents(query.PageNumber, query.ItemsPerPage);
-        }
+            events = events
+                .FilterByEventType(query.EventType)
+                .FilterByUserAttending(_user, query.Attending);
 
-        private void ApplyFilters(ViewAllEventsQuery query)
-        {
-            ApplyIsRegisteredFilters(query.Email, query.Registered);
+            var data = await events
+                .GetPage(query.PageNumber, query.ItemsPerPage)
+                .ToEventInformation(150)
+                .ToListAsync();
 
-            ApplyEventTypeFilters(query.EventType);
-        }
+            var totalNoEvents = events.Count();
 
-        private void ApplyIsRegisteredFilters(string email, bool registered)
-        {
-            if(email is null)
-            {
-                return;
-            }
-
-            ValidateUser(email);
-
-            var eventIds = _context.Reservations
-                    .FilterByUserId(_user.Id)
-                    .Select(r => r.EventId);
-
-            _events = _events.Where(e => eventIds.Contains(e.Id) == registered);
+            return new PageInfo<EventInformation>(data, totalNoEvents);
         }
 
         private void ValidateUser(string email)
         {
+            if (email is null)
+            {
+                _user = null;
+                return;
+            }
+
             _user = _context.Users.FilterByEmail(email).FirstOrDefault();
 
             if (_user is null)
@@ -71,23 +63,9 @@ namespace EvoEvents.Business.Events.Handlers
             }
         }
 
-        private void ApplyEventTypeFilters(EventType eventType)
+        private IQueryable<Event> GetEvents()
         {
-            if (eventType is EventType.None)
-            {
-                return;
-            }
-
-            _events = _events.FilterByEventType(eventType);
-        }
-
-        private async Task<PageInfo<EventInformation>> GetPaginatedEvents(int pageNumber, int itemsPerPage)
-        {
-            var list = await _events.GetPage(pageNumber, itemsPerPage)
-                .ToEventInformation(150)
-                .ToListAsync();
-
-            return new PageInfo<EventInformation>(list, _events.Count());
+            return _context.Events;
         }
     }
 }

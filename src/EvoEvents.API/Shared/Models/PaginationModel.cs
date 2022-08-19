@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Infrastructure.Utilities.Errors.ErrorMessages;
-using System;
 
 namespace EvoEvents.API.Shared.Models
 {

@@ -1,6 +1,8 @@
 ﻿using EvoEvents.Business.Events;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
+using EvoEvents.Data.Models.Reservations;
+using EvoEvents.Data.Models.Users;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Linq;
 namespace EvoEvents.UnitTests.Business.Events.Extensions
 {
     [TestFixture]
-    public class FilterByEventTypeTests
+    public class FilterByUserAttendingTests
     {
         private IQueryable<Event> _events;
 
@@ -19,22 +21,45 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
         }
 
         [Test]
-        public void ShouldReturnFilteredQueryable()
+        public void ShouldReturnAttendingEvents()
         {
-            var eventType = EventType.Movie;
-            var events = _events.FilterByEventType(eventType);
+            var user = new User
+            {
+                Id = 1
+            };
+
+            bool attending = true;
+
+            var events = _events.FilterByUserAttending(user, attending);
 
             Assert.That(events.Count(), Is.EqualTo(1));
-            Assert.That(events.FirstOrDefault().EventTypeId, Is.EqualTo(eventType));
+            Assert.That(events.FirstOrDefault().Id, Is.EqualTo(1));
         }
 
         [Test]
-        public void WhenEventTypeIsNone_ShouldReturnAllEvents()
+        public void ShouldReturnUnattendingEvents()
         {
-            var eventType = EventType.None;
-            var events = _events.FilterByEventType(eventType);
+            var user = new User
+            {
+                Id = 1
+            };
+            bool attending = false;
 
-            Assert.That(events, Is.EquivalentTo(_events));
+            var events = _events.FilterByUserAttending(user, attending);
+
+            Assert.That(events.Count(), Is.EqualTo(1));
+            Assert.That(events.FirstOrDefault().Id, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void WhenUserIdIsNull_ShouldReturnAllEvents()
+        {
+            User user = null;
+            bool attending = false;
+
+            var events = _events.FilterByUserAttending(user, attending);
+
+            Assert.That(events.Count(), Is.EqualTo(2));
         }
 
         private void SetupEvents()
@@ -53,6 +78,15 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
                         CountryId = Country.Italia
+                    },
+                    Reservations = new List<Reservation>()
+                    {
+                        new Reservation
+                        {
+                            Id = 1,
+                            UserId = 1,
+                            EventId = 1
+                        }
                     }
                 },
                 new Event
@@ -60,14 +94,15 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     Id=2,
                     Name = "EvoEvent",
                     Description = "super",
-                    EventTypeId = EventType.Movie,
+                    EventTypeId = EventType.Concert,
                     MaxNoAttendees = 10,
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
                         CountryId = Country.Italia
-                    }
+                    },
+                    Reservations = new List<Reservation>()
                 }
             };
 

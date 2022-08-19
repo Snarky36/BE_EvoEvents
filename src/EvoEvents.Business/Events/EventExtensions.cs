@@ -3,6 +3,7 @@ using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
+using EvoEvents.Data.Models.Users;
 using System.Linq;
 
 namespace EvoEvents.Business.Events
@@ -68,11 +69,12 @@ namespace EvoEvents.Business.Events
 
         public static IQueryable<Event> FilterByEventType(this IQueryable<Event> events, EventType eventType)
         {
-            if(eventType is not EventType.None)
-            {
-                events = events.Where(e => e.EventTypeId == eventType);
-            }
-            return events;
+            return events.Where(e => eventType == EventType.None || e.EventTypeId == eventType);
+        }
+
+        public static IQueryable<Event> FilterByUserAttending(this IQueryable<Event> events, User user, bool attending)
+        {
+            return events.Where(e => user == null || e.Reservations.Any(r => r.UserId == user.Id) == attending);
         }
     }
 }

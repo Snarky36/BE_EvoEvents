@@ -1,5 +1,6 @@
 ﻿using EvoEvents.Business.Events.Commands;
 using EvoEvents.Business.Events.Queries;
+using EvoEvents.Data.Models.Events;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
 using System.IO;
@@ -22,9 +23,9 @@ namespace EvoEvents.API.Requests.Events
             {
                 PageNumber = request.PaginationModel.PageNumber,
                 ItemsPerPage = request.PaginationModel.ItemsPerPage,
-                Registered = request.Registered,
-                Email = request.Email,
-                EventType = request.EventType
+                Attending = request.Filters != null ? request.Filters.Attending : false,
+                Email = request.Filters?.Email,
+                EventType = request.Filters != null ? request.Filters.EventType : EventType.None
             };
         }
 

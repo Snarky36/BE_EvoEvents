@@ -4,6 +4,7 @@ using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
+using EvoEvents.Data.Models.Reservations;
 using FluentAssertions;
 using Infrastructure.Utilities;
 using Microsoft.AspNetCore.Http;
@@ -100,7 +101,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
-                    Image = SetupFile().FileToByteArray()
+                    Image = SetupFile().FileToByteArray(),
+                    Reservations = new List<Reservation>()
                 },
                new Event
                 {
@@ -121,7 +123,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
-                    Image = SetupFile().FileToByteArray()
+                    Image = SetupFile().FileToByteArray(),
+                    Reservations = new List<Reservation>()
                 }
             };
 
