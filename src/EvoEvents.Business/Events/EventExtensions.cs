@@ -4,6 +4,7 @@ using EvoEvents.Business.Events.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using EvoEvents.Data.Models.Users;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace EvoEvents.Business.Events
@@ -32,13 +33,14 @@ namespace EvoEvents.Business.Events
 
         public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events)
         {
-            return events.Select(e => new EventInformation
+            return events.Include(e => e.Reservations).Select(e => new EventInformation
             {
                 Id = e.Id,
                 Name = e.Name,
                 Description = e.Description,
                 EventType = e.EventTypeId,
                 MaxNoAttendees = e.MaxNoAttendees,
+                CurrentNoAttendees = e.GetNoAttendees(),
                 Address = e.Address.ToAddressInformation(),
                 FromDate = e.FromDate,
                 ToDate = e.ToDate,
@@ -48,13 +50,14 @@ namespace EvoEvents.Business.Events
 
         public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events, int descriptionMaxLength)
         {
-            return events.Select(e => new EventInformation
+            return events.Include(e => e.Reservations).Select(e => new EventInformation
             {
                 Id = e.Id,
                 Name = e.Name,
                 Description = e.Description.Substring(0, descriptionMaxLength),
                 EventType = e.EventType.Id,
                 MaxNoAttendees = e.MaxNoAttendees,
+                CurrentNoAttendees = e.GetNoAttendees(),
                 Address = e.Address.ToAddressInformation(),
                 FromDate = e.FromDate,
                 ToDate = e.ToDate,
@@ -75,6 +78,11 @@ namespace EvoEvents.Business.Events
         public static IQueryable<Event> FilterByUserAttending(this IQueryable<Event> events, User user, bool attending)
         {
             return events.Where(e => user == null || e.Reservations.Any(r => r.UserId == user.Id) == attending);
+        }
+
+        public static int GetNoAttendees(this Event eventToCheck)
+        {
+            return eventToCheck.Reservations.Count() + eventToCheck.Reservations.Count(e => e.AccompanyingPersonEmail is not null);
         }
     }
 }

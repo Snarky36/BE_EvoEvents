@@ -1,4 +1,5 @@
-﻿using EvoEvents.Business.Reservations.Commands;
+﻿using EvoEvents.Business.Events;
+using EvoEvents.Business.Reservations.Commands;
 using EvoEvents.Business.Users;
 using EvoEvents.Data;
 using EvoEvents.Data.Models.Events;
@@ -8,6 +9,7 @@ using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
 using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +40,7 @@ namespace EvoEvents.Business.Reservations.Handlers
         {
             ValidateEvent(command);
             ValidateUser(command);
+            ValidateCapacity(command);
             IsUserAlreadyRegistered();
         }
 
@@ -53,27 +56,20 @@ namespace EvoEvents.Business.Reservations.Handlers
 
         private void ValidateEvent(CreateReservationCommand command)
         {
-            _event = _context.Events.SingleOrDefault(e => e.Id == command.EventId);
+            _event = _context.Events.Include(e => e.Reservations).SingleOrDefault(e => e.Id == command.EventId);
 
             if (_event is null)
             {
                 throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
             }
-            
-            ValidateCapacity(command);
         }
 
         private void ValidateCapacity(CreateReservationCommand command)
         {
-            var currentNoOfParticipantsWithAccompanyingPerson = _context.Reservations
-                                                                            .Where(e => e.EventId == command.EventId)
-                                                                            .Count(r => r.AccompanyingPersonEmail != null);
-            var currentNoOfReservations = _context.Reservations.Where(e => e.EventId == command.EventId)
-                                                        .Count();
-            var currentNoOfParticipants = currentNoOfParticipantsWithAccompanyingPerson + currentNoOfReservations;
+            var CurrentNoAttendees = _event.GetNoAttendees();
+            var AttendeesToAdd = command.AccompanyingPersonEmail is null ? 1 : 2;
 
-            if ((command.AccompanyingPersonEmail is not null && _event.MaxNoAttendees - currentNoOfParticipants < 2)
-                || (command.AccompanyingPersonEmail is null && _event.MaxNoAttendees - currentNoOfParticipants < 1))
+            if (CurrentNoAttendees + AttendeesToAdd > _event.MaxNoAttendees)
             {
                 throw new CustomException(ErrorCode.Event_CapacityExceeded, EventErrorMessage.CapacityExceeded);
             }

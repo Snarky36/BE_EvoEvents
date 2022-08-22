@@ -16,59 +16,66 @@ using System.Linq;
 namespace EvoEvents.UnitTests.Business.Events.Extensions
 {
     [TestFixture]
-    public class EventToEventInformationTests
+    public class GetNoAttendeesTests
     {
-        private IQueryable<Event> _events;
+        private Event _event;
 
         [SetUp]
         public void Innit()
         {
-            SetupEvents();
+            SetupEvent();
         }
 
-        private void SetupEvents()
+        private void SetupEvent()
         {
-            var events = new List<Event>
+            _event = new Event
             {
-                new Event
+                Id = 1,
+                Name = "EvoEvent",
+                Description = "super",
+                EventTypeId = EventType.Movie,
+                MaxNoAttendees = 10,
+                Address = new Address
                 {
-                    Id=1,
-                    Name = "EvoEvent",
-                    Description = "super",
-                    EventTypeId = EventType.Movie,
-                    MaxNoAttendees = 10,
-                    Address = new Address
+                    Location = "Strada Bisericii Sud",
+                    CityId = City.Milano,
+                    CountryId = Country.Italia
+                },
+                Image = SetupFile().FileToByteArray(),
+                Reservations = new List<Reservation>
+                {
+                    new Reservation
                     {
-                        Location = "Strada Bisericii Sud",
-                        CityId = City.Milano,
-                        CountryId = Country.Italia
+                        Id = 1,
+                        UserId = 1,
+                        EventId = 1
                     },
-                    Image = SetupFile().FileToByteArray(),
-                    Reservations = new List<Reservation>()
+                    new Reservation
+                    {
+                        Id = 1,
+                        UserId = 14,
+                        EventId = 1,
+                        AccompanyingPersonEmail = "123@123.com"
+                    }
                 }
             };
-
-            _events = events.AsQueryable();
         }
 
         [Test]
-        public void ShouldReturnCorrectEventInformation()
-        {   
-            var eventInformation = _events.ToEventInformation().FirstOrDefault();
+        public void ShouldReturnCorrectNoAttendees()
+        {
+            var CurretNoAttendees = _event.GetNoAttendees();
 
-            eventInformation.Id.Should().Be(1);
-            eventInformation.Name.Should().Be("EvoEvent");
-            eventInformation.Description.Should().Be("super");
-            eventInformation.EventType.Should().Be(EventType.Movie);
-            eventInformation.MaxNoAttendees.Should().Be(10);
-            eventInformation.Address.Should().BeEquivalentTo(
-                new AddressInformation
-                {
-                    Location = "Strada Bisericii Sud",
-                    City = City.Milano,
-                    Country = Country.Italia
-                });
-            eventInformation.EventImage.Should().Equal(SetupFile().FileToByteArray());
+            CurretNoAttendees.Should().Be(3);
+        }
+
+        [Test]
+        public void WhenNoReservationsExist_ShouldReturnZero()
+        {
+            _event.Reservations = new List<Reservation>();
+            var CurretNoAttendees = _event.GetNoAttendees();
+
+            CurretNoAttendees.Should().Be(0);
         }
 
         private byte[] SetupByteArray()

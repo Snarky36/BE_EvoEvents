@@ -5,6 +5,7 @@ using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
+using EvoEvents.Data.Models.Reservations;
 using FluentAssertions;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
@@ -100,7 +101,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
-                    Image = SetupFile().FileToByteArray()
+                    Image = SetupFile().FileToByteArray(),
+                    Reservations = new List<Reservation>()
                }
             };
 

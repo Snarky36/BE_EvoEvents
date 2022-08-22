@@ -1,5 +1,4 @@
-﻿using EvoEvents.Business.Events.Commands;
-using EvoEvents.Business.Events.Models;
+﻿using EvoEvents.Business.Events.Models;
 using EvoEvents.Business.Events.Queries;
 using EvoEvents.Data;
 using Infrastructure.Utilities.CustomException;

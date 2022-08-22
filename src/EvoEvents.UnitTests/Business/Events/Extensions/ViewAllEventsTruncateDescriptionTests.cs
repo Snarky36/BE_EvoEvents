@@ -2,6 +2,7 @@
 using EvoEvents.Business.Events;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
+using EvoEvents.Data.Models.Reservations;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -49,7 +50,8 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                         CityId = City.Milano,
                         CountryId = Country.Italia
                     },
-                    Image = SetupFile().FileToByteArray()
+                    Image = SetupFile().FileToByteArray(),
+                    Reservations = new List<Reservation>()     
                 }
             };
 
@@ -61,7 +63,6 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
         {
             var events =  _events.ToEventInformation(150);
             
-
             events.First().Description.Should().Be("A wonderful serenity has taken possession of my entire soul, " +
                 "like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and fe");
         }
