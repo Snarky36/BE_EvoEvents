@@ -29,8 +29,8 @@ namespace EvoEvents.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EventInformation>> ViewEvent([FromRoute] ViewEventRequest request)
+        [HttpPost("{id}")]
+        public async Task<ActionResult<EventInformation>> ViewEvent(ViewEventRequest request)
         {
             var result = await _mediator.Send(request.ToQuery());
 

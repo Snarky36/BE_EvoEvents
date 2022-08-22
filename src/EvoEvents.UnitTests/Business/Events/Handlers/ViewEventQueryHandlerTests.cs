@@ -6,6 +6,7 @@ using EvoEvents.Data;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using EvoEvents.Data.Models.Reservations;
+using EvoEvents.Data.Models.Users;
 using FluentAssertions;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
@@ -69,6 +70,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 });
             result.FromDate.Should().Be(_fromDate);
             result.ToDate.Should().Be(_toDate);
+            result.Attending.Should().Be(true);
         }
 
         [Test]
@@ -102,18 +104,56 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     FromDate = _fromDate,
                     ToDate = _toDate,
                     Image = SetupFile().FileToByteArray(),
-                    Reservations = new List<Reservation>()
+                    Reservations = new List<Reservation> {
+                        new Reservation
+                        {
+                            Id = 3,
+                            UserId = 2,
+                            EventId = 1,
+                            AccompanyingPersonEmail = null
+                        }
+                    }
                }
             };
 
+            var users = new List<User>
+            {
+               new User
+                {
+                    Id = 2,
+                    Email = "paulac@yahoo.com",
+                    Password = "paula123",
+                    Information = new UserDetail
+                    {
+                        FirstName = "Paula",
+                        LastName = "Costea",
+                        Company = "Evozon"
+                    }
+                }
+            };
+
+            var reservations = new List<Reservation>
+            {
+               new Reservation
+                {
+                    Id = 3,
+                    UserId = 2,
+                    EventId = 1,
+                    AccompanyingPersonEmail = null
+                }
+            };
+
             _context.Setup(c => c.Events).ReturnsDbSet(events);
+            _context.Setup(c => c.Users).ReturnsDbSet(users); 
+            _context.Setup(c => c.Reservations).ReturnsDbSet(reservations);
         }
 
         private void SetupRequest()
         {
             _query = new ViewEventQuery
             {
-                Id=1
+                Id = 1,
+                UserEmail = "paulac@yahoo.com"
             };
         }
 

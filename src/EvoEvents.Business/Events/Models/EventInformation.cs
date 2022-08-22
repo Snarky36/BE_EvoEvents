@@ -16,5 +16,6 @@ namespace EvoEvents.Business.Events.Models
         public DateTime ToDate { get; set; }
         public byte[] EventImage { get; init; }
         public AddressInformation Address { get; init; }
+        public bool Attending { get; set; }    
     }
 }

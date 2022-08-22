@@ -48,6 +48,22 @@ namespace EvoEvents.Business.Events
             });
         }
 
+        public static EventInformation ToEventInformation(this Event eventToTransform)
+        {
+            return new EventInformation 
+            {
+                Id = eventToTransform.Id,
+                Name = eventToTransform.Name,
+                Description = eventToTransform.Description,
+                EventType = eventToTransform.EventTypeId,
+                MaxNoAttendees = eventToTransform.MaxNoAttendees,
+                Address = eventToTransform.Address.ToAddressInformation(),
+                FromDate = eventToTransform.FromDate,
+                ToDate = eventToTransform.ToDate,
+                EventImage = eventToTransform.Image
+            };
+        }
+
         public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events, int descriptionMaxLength)
         {
             return events.Include(e => e.Reservations).Select(e => new EventInformation

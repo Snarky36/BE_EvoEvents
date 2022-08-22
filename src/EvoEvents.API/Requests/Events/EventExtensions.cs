@@ -13,7 +13,8 @@ namespace EvoEvents.API.Requests.Events
         {
             return new ViewEventQuery
             {
-                Id = request.Id
+                Id = request.Id,
+                UserEmail = request.EmailModel.UserEmail
             };
         }
 

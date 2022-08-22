@@ -1,5 +1,6 @@
 ﻿using EvoEvents.API.Controllers;
 using EvoEvents.API.Requests.Events;
+using EvoEvents.API.Requests.Reservations;
 using EvoEvents.Business.Events.Models;
 using EvoEvents.Business.Events.Queries;
 using FluentAssertions;
@@ -58,7 +59,11 @@ namespace EvoEvents.UnitTests.Api.Controllers.EventControllerTests
         {
             _request = new ViewEventRequest
             {
-                Id=1
+                Id = 1,
+                EmailModel = new EmailModel
+                {
+                    UserEmail = "paulac@yahoo.com"
+                }
             };
         }
     }
