@@ -20,8 +20,7 @@ namespace EvoEvents.Business.Events
                 MaxNoAttendees = command.MaxNoAttendees,
                 Address = new Address
                 {
-                    CityId = command.City,
-                    CountryId = command.Country,
+                    CityCountries = command.CityCountries,
                     Location = command.Location
                 },
                 FromDate = command.FromDate,

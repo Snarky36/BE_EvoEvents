@@ -22,8 +22,11 @@ namespace EvoEvents.UnitTests.Business.Addresses.Extensions
             _address = new Address
             {
                 Location = "Strada Bisericii Sud",
-                CityId = City.Milano,
-                CountryId = Country.Italia
+                CityCountries = new CityCountries
+                {
+                    CityId = (City)1,
+                    CountryId = (Country)2
+                }
             };
         }
         [Test]
@@ -35,8 +38,11 @@ namespace EvoEvents.UnitTests.Business.Addresses.Extensions
                 new AddressInformation
                 {
                     Location = _address.Location,
-                    City = _address.CityId,
-                    Country = _address.CountryId
+                    CityCountries = new CityCountries
+                    {
+                        CityId = (City)1,
+                        CountryId = (Country)2
+                    }
                 });
         }
     }

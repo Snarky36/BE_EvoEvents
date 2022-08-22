@@ -25,8 +25,11 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
-                City = City.Milano,
-                Country = Country.Italia,
+                CityCountries = new CityCountries
+                {
+                    CityId = (City)1,
+                    CountryId = (Country)2
+                },
                 FromDate = DateTime.Now.AddDays(1),
                 ToDate = DateTime.Now.AddDays(2),
                 EventImage = SetupFile().FileToByteArray()
@@ -39,8 +42,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
             result.EventTypeId.Should().Be(request.EventType);
             result.MaxNoAttendees.Should().Be(request.MaxNoAttendees);
             result.Address.Location.Should().Be(request.Location);
-            result.Address.CountryId.Should().Be(request.Country);
-            result.Address.CityId.Should().Be(request.City);
+            result.Address.CityCountries.Should().Be(request.CityCountries);
             result.FromDate.Should().Be(request.FromDate);
             result.ToDate.Should().Be(request.ToDate);
             result.Image.Should().Equal(SetupFile().FileToByteArray());

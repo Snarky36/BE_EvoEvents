@@ -29,7 +29,7 @@ namespace EvoEvents.Business.Events.Handlers
         private void ValidateEvent(CreateEventCommand command)
         {
             var eventAlreadyExisting = _context.Events
-                .Any(e => e.Address.CityId == command.City &&
+                .Any(e => e.Address.CityCountries == command.CityCountries &&
                     e.Address.Location == command.Location &&
                     e.FromDate == command.FromDate &&
                     e.ToDate == command.ToDate &&

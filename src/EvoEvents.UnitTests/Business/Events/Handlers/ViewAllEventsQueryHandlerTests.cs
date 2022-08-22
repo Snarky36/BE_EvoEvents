@@ -60,8 +60,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             result.Items.First().Description.Should().Be(descriptionString.Substring(0, 150));
             result.Items.First().EventType.Should().Be(EventType.Movie);
             result.Items.First().MaxNoAttendees.Should().Be(10);
-            result.Items.First().Address.City.Should().Be(City.Milano);
-            result.Items.First().Address.Country.Should().Be(Country.Italia);
+            result.Items.First().Address.CityCountries.CityId.Should().Be(City.Cluj);
+            result.Items.First().Address.CityCountries.CountryId.Should().Be(Country.Romania);
             result.Items.First().Address.Location.Should().Be("Strada Bisericii Sud");
             result.Items.First().FromDate.Should().Be(_fromDate);
             result.Items.First().ToDate.Should().Be(_toDate);
@@ -96,8 +96,11 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
-                        CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CityCountries = new CityCountries
+                        {
+                            CityId = City.Cluj,
+                            CountryId = Country.Romania
+                        }
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
@@ -118,8 +121,11 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud2",
-                        CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CityCountries = new CityCountries
+                        {
+                            CityId = City.Cluj,
+                            CountryId = Country.Romania
+                        }
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,

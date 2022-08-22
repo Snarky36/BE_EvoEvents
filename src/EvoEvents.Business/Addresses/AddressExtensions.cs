@@ -10,8 +10,7 @@ namespace EvoEvents.Business.Addresses
             return new AddressInformation
             {
                 Location = address.Location,
-                City = address.CityId,
-                Country = address.CountryId
+                CityCountries = address.CityCountries
             };
         }
     }
