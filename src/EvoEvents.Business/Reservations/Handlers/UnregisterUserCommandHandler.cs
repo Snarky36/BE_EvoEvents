@@ -55,6 +55,11 @@ namespace EvoEvents.Business.Reservations.Handlers
             {
                 throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
             }
+
+            if (_event.ToDate  < DateTime.UtcNow)
+            {
+                throw new CustomException(ErrorCode.Reservation_CannotUnregisterToPastEvents, ReservationErrorMessage.CannotUnregisterToPastEvents);
+            }
         }
 
         private void ValidateUser(UnregisterUserCommand command)
