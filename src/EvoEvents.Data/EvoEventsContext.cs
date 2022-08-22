@@ -28,6 +28,7 @@ namespace EvoEvents.Data
         public virtual DbSet<CityLookup> CityLookups { get; set; }
         public virtual DbSet<CountryLookup> CountryLookups { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<CityCountries> CityCountries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -40,6 +41,7 @@ namespace EvoEvents.Data
             builder.ApplyConfiguration(new CountryConfiguration());
             builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new ReservationConfiguration());
+            builder.ApplyConfiguration(new CityCountriesConfiguration());
         }
     }
 }

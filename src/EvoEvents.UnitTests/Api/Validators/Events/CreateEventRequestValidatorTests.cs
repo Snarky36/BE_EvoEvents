@@ -1,5 +1,6 @@
 ﻿using EvoEvents.API.Requests.Events;
 using EvoEvents.API.Shared.Models;
+using EvoEvents.Business.Addresses.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using FluentValidation.TestHelper;
@@ -33,9 +34,15 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
                 Description = "este fain",
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
-                Location = "Strada Bisericii Sud",
-                City = City.Milano,
-                Country = Country.Italia,
+                AddressInformation = new AddressInformation
+                {
+                    Location = "abc",
+                    CityCountries = new CityCountries
+                    {
+                        CityId = (City)1,
+                        CountryId = (Country)1
+                    }
+                },
                 DateRangeModel = new DateRangeModel
                 {
                     FromDate = DateTime.Now.AddDays(1),
@@ -71,17 +78,17 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
         [Test]
         public void WhenCityNotInEnum_ShouldReturnError()
         {
-            _request.City = (City)(-2);
+            _request.AddressInformation.CityCountries.CityId = (City)(-2);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.City);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.AddressInformation.CityCountries.CityId);
         }
 
         [Test]
         public void WhenCountryNotInEnum_ShouldReturnError()
         {
-            _request.Country = (Country)(-2);
+            _request.AddressInformation.CityCountries.CountryId = (Country)(-2);
 
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Country);
+            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.AddressInformation.CityCountries.CountryId);
         }
 
         [Test]

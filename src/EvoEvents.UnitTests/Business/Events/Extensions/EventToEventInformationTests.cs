@@ -40,8 +40,11 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
-                        CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CityCountries = new CityCountries
+                        {
+                            CityId = (City)2,
+                            CountryId = (Country)1
+                        }
                     },
                     Image = SetupFile().FileToByteArray(),
                     Reservations = new List<Reservation>()
@@ -65,8 +68,11 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 new AddressInformation
                 {
                     Location = "Strada Bisericii Sud",
-                    City = City.Milano,
-                    Country = Country.Italia
+                    CityCountries = new CityCountries
+                    {
+                        CityId = (City)2,
+                        CountryId = (Country)1
+                    }
                 });
             eventInformation.EventImage.Should().Equal(SetupFile().FileToByteArray());
             eventInformation.Attending.Should().Be(false);

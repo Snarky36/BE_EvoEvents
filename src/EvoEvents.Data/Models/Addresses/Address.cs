@@ -5,10 +5,8 @@
         public int Id { get; set; } 
         public int EventId { get; set; }
         public string Location { get; set; }    
-        public City CityId { get; set; }
-        public Country CountryId { get; set; }
+        public int CityCountriesId { get; set; }
 
-        public virtual CountryLookup Country { get; set; }    
-        public virtual CityLookup City { get; set; }
+        public CityCountries CityCountries { get; set; }
     }
 }

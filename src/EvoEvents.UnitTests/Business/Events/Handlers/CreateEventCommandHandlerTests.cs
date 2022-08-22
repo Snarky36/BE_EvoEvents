@@ -129,10 +129,14 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
-                City = City.Milano,
-                FromDate = _fromDate,
+                FromDate=_fromDate,
                 ToDate = _toDate,
-                Country = Country.Italia,
+                CityCountries = new CityCountries
+                {
+                    CityId = (City)2,
+                    CountryId = (Country)1
+                },
+                
                 EventImage = SetupFile().FileToByteArray()
             };
         }

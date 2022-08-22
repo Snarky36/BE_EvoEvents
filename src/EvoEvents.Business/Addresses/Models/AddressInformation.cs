@@ -5,7 +5,6 @@ namespace EvoEvents.Business.Addresses.Models
     public class AddressInformation
     {
         public string Location { get; set; }
-        public City City { get; set; }
-        public Country Country { get; set; }
+        public CityCountries CityCountries { get; set; }
     }
 }

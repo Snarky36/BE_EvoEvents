@@ -4,6 +4,7 @@ using EvoEvents.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvoEvents.Migrations.Migrations
 {
     [DbContext(typeof(EvoEventsContext))]
-    partial class EvoEventsContextModelSnapshot : ModelSnapshot
+    [Migration("20220822122633_AddMappingBetweenCityAndCountry")]
+    partial class AddMappingBetweenCityAndCountry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,8 +325,9 @@ namespace EvoEvents.Migrations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AccompanyingPersonId")
-                        .HasColumnType("int");
+                    b.Property<string>("AccompanyingPersonEmail")
+                        .HasMaxLength(74)
+                        .HasColumnType("nvarchar(74)");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");

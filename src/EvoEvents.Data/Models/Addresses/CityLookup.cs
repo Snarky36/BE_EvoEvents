@@ -3,6 +3,6 @@
     public class CityLookup
     {
         public City Id { get; set; } 
-        public string Name { get; set; }    
+        public string Name { get; set; }
     }
 }
