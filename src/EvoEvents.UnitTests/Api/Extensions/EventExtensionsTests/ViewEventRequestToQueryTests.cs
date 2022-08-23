@@ -25,6 +25,7 @@ namespace EvoEvents.UnitTests.Api.Extensions.EventExtensionsTests
             var result = request.ToQuery();
 
             result.Id.Should().Be(request.Id);
+            result.UserEmail.Should().Be(request.EmailModel.UserEmail);
         }
     }
 }

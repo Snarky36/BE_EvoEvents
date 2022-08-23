@@ -56,14 +56,14 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
         public async Task ShouldAddReservationAsync()
         {
             var user = _users.Where(u => u.Email == _command.UserEmail).FirstOrDefault();
+            var accompanyPersonId = _users.Where(u => u.Email == _command.AccompanyingPersonEmail).Select(u => u.Id).FirstOrDefault();
 
             var result = await _handler.Handle(_command, new CancellationToken());
 
-            _context.Verify(c => c.Reservations.AddAsync(It.IsAny<Reservation>(), It.IsAny<CancellationToken>()), Times.Once);
             _context.Verify(c => c.Reservations
                 .AddAsync(It.Is<Reservation>(obj =>
                     obj.EventId == _command.EventId &&
-                    obj.AccompanyingPersonEmail == _command.AccompanyingPersonEmail &&
+                    obj.AccompanyingPersonId == accompanyPersonId &&
                     obj.UserId == user.Id), It.IsAny<CancellationToken>()),Times.Once);
         }
 
@@ -119,6 +119,18 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                     {   
                         FirstName = "absc",
                         LastName = "asdfg",
+                        Company = "comnapi"
+                    }
+                },
+                 new User
+                {
+                    Id = 2,
+                    Email = "abcd@aaa.com",
+                    Password = "123ASDF",
+                    Information = new UserDetail
+                    {
+                        FirstName = "aaaaaa",
+                        LastName = "bbbbb",
                         Company = "comnapi"
                     }
                 }

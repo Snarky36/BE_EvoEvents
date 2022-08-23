@@ -8,7 +8,8 @@ namespace EvoEvents.Data.Configurations.Reservations
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.Property(r => r.AccompanyingPersonEmail).HasMaxLength(74);
+            builder.Property(r => r.UserId).IsRequired();
+            builder.Property(r => r.EventId).IsRequired();
         }
     }
 }

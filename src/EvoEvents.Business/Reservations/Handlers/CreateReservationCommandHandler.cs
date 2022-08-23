@@ -20,6 +20,7 @@ namespace EvoEvents.Business.Reservations.Handlers
     {
         public EvoEventsContext _context;
         private User _user;
+        private User _accompanyingPerson;
         private Event _event;
 
         public CreateReservationCommandHandler(EvoEventsContext context)
@@ -31,7 +32,7 @@ namespace EvoEvents.Business.Reservations.Handlers
         {
             ValidateReservation(command);
 
-            await CreateReservation(command.AccompanyingPersonEmail);
+            await CreateReservation();
 
             return await _context.SaveChangesAsync() > 0;
         }
@@ -39,18 +40,20 @@ namespace EvoEvents.Business.Reservations.Handlers
         private void ValidateReservation(CreateReservationCommand command)
         {
             ValidateEvent(command);
-            ValidateUser(command);
             ValidateCapacity(command);
+            ValidateUser(command);
+            ValidateAccompanyingPerson(command);
             IsUserAlreadyRegistered();
+            IsAccompanyingPersonAlreadyRegistered();
         }
 
-        private async Task CreateReservation(string accompanyingPerson)
+        private async Task CreateReservation()
         {
             await _context.Reservations.AddAsync(new Reservation
             {
                 EventId = _event.Id,
                 UserId = _user.Id,
-                AccompanyingPersonEmail = accompanyingPerson
+                AccompanyingPersonId = _accompanyingPerson is null ? null : _accompanyingPerson.Id
             });
         }
 
@@ -85,11 +88,38 @@ namespace EvoEvents.Business.Reservations.Handlers
             }
         }
 
+        private void ValidateAccompanyingPerson(CreateReservationCommand command)
+        {
+            if (command.AccompanyingPersonEmail is null)
+            {
+                return;
+            }
+            _accompanyingPerson = _context.Users.FilterByEmail(command.AccompanyingPersonEmail).FirstOrDefault();
+
+            if (_accompanyingPerson is null)
+            {
+                throw new CustomException(ErrorCode.User_NotFound, UserErrorMessage.AccompanyingPersonNotFound);
+            }
+        }
+
         private void IsUserAlreadyRegistered()
         {
-            if (_context.Reservations.Any(r => r.EventId == _event.Id && r.UserId == _user.Id))
+            if (_event.Reservations.Any(r => r.UserId == _user.Id || r.AccompanyingPersonId == _user.Id))
             {
                 throw new CustomException(ErrorCode.Reservation_UserAlreadyRegistered, ReservationErrorMessage.UserAlreadyRegistered);
+            }
+        }
+
+        private void IsAccompanyingPersonAlreadyRegistered()
+        {
+            if (_accompanyingPerson is null)
+            {
+                return;
+            }
+
+            if (_event.Reservations.Any(r => r.AccompanyingPersonId == _accompanyingPerson.Id || r.UserId == _accompanyingPerson.Id))
+            {
+                throw new CustomException(ErrorCode.Reservation_AccompanyingPersonAlreadyRegistered, ReservationErrorMessage.AccompanyingPersonAlreadyRegistered);
             }
         }
     }

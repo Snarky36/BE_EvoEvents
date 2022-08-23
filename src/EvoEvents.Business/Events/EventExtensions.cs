@@ -93,12 +93,13 @@ namespace EvoEvents.Business.Events
 
         public static IQueryable<Event> FilterByUserAttending(this IQueryable<Event> events, User user, bool attending)
         {
-            return events.Where(e => user == null || e.Reservations.Any(r => r.UserId == user.Id) == attending);
+            return events.Where(e => user == null || 
+                e.Reservations.Any(r => r.UserId == user.Id || r.AccompanyingPersonId == user.Id) == attending);
         }
 
         public static int GetNoAttendees(this Event eventToCheck)
         {
-            return eventToCheck.Reservations.Count() + eventToCheck.Reservations.Count(e => e.AccompanyingPersonEmail is not null);
+            return eventToCheck.Reservations.Count() + eventToCheck.Reservations.Count(e => e.AccompanyingPersonId is not null);
         }
     }
 }

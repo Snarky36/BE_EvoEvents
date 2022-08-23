@@ -18,5 +18,6 @@
         public static readonly string WrongCredentials = "Wrong credentials";
 
         public static readonly string UserNotFound = "User with that email does not exist";
+        public static readonly string AccompanyingPersonNotFound = "Accompanying person with that email does not exist";
     }
 }

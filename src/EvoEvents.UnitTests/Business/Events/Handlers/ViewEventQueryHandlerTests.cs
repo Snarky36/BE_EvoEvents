@@ -110,7 +110,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                             Id = 3,
                             UserId = 2,
                             EventId = 1,
-                            AccompanyingPersonEmail = null
+                            AccompanyingPersonId = null
                         }
                     }
                }
@@ -139,7 +139,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Id = 3,
                     UserId = 2,
                     EventId = 1,
-                    AccompanyingPersonEmail = null
+                    AccompanyingPersonId = null
                 }
             };
 

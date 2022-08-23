@@ -17,7 +17,9 @@ namespace EvoEvents.API.Requests.Events.Reservations
             RuleFor(e => e.AccompanyingPerson)
                 .NotEqual(e => e.UserEmail).WithMessage(ReservationErrorMessage.DuplicateEmail)
                 .Matches(RegularExpression.EmailFormat).WithMessage(UserErrorMessage.EmailFormat);
-            RuleFor(e => e.UserEmail).NotEmpty()
+            RuleFor(e => e.UserEmail)
+                .NotEmpty()
+                .MinimumLength(7).WithMessage(UserErrorMessage.EmailLength)
                 .Matches(RegularExpression.EmailFormat).WithMessage(UserErrorMessage.EmailFormat);
         }
     }

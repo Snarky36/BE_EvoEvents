@@ -66,7 +66,7 @@ namespace EvoEvents.Business.Events.Handlers
 
         private bool IsRegistered(Event _event)
         {
-            return _event.Reservations.Any(r => r.UserId == _user.Id);
+            return _event.Reservations.Any(r => r.UserId == _user.Id || r.AccompanyingPersonId == _user.Id);
         }
     }
 }

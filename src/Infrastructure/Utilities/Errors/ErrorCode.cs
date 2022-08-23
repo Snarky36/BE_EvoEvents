@@ -13,5 +13,6 @@
         Reservation_UserAlreadyRegistered = 300,
         Reservation_NotFound = 301,
         Reservation_CannotUnregisterToPastEvents = 303,
+        Reservation_AccompanyingPersonAlreadyRegistered = 302
     }
 }

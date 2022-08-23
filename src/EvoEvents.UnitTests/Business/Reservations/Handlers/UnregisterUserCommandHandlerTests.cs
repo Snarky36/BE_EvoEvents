@@ -88,7 +88,17 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                     },
                     MaxNoAttendees = 10,
                     FromDate = DateTime.UtcNow.AddDays(2),
-                    ToDate = DateTime.UtcNow.AddDays(5)
+                    ToDate = DateTime.UtcNow.AddDays(5),
+                    Reservations = new List<Reservation>
+                    {
+                        new Reservation
+                        {
+                            Id = 3,
+                            UserId = 2,
+                            EventId = 1,
+                            AccompanyingPersonId = null
+                        }
+                    }
                 }
             };
 
@@ -115,7 +125,7 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                     Id = 3,
                     UserId = 2,
                     EventId = 1,
-                    AccompanyingPersonEmail = null
+                    AccompanyingPersonId = null
                 }
             };
             _context.Setup(c => c.Reservations).ReturnsDbSet(reservation);

@@ -1,5 +1,6 @@
 ﻿using EvoEvents.API.Requests.Reservations;
 using EvoEvents.Business.Reservations.Commands;
+using Infrastructure.Utilities;
 
 namespace EvoEvents.API.Requests.Events.Reservations
 {
@@ -10,7 +11,7 @@ namespace EvoEvents.API.Requests.Events.Reservations
             return new CreateReservationCommand
             {
                 EventId = request.EventId,
-                AccompanyingPersonEmail = request.RegistrationInformation.AccompanyingPerson,
+                AccompanyingPersonEmail = request.RegistrationInformation.AccompanyingPerson.NullIfEmpty(),
                 UserEmail = request.RegistrationInformation.UserEmail
             };
         }

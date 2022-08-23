@@ -1,10 +1,12 @@
 ﻿using EvoEvents.Business.Reservations.Commands;
 using EvoEvents.Business.Users;
 using EvoEvents.Data;
+using EvoEvents.Data.Models.Events;
 using Infrastructure.Utilities.CustomException;
 using Infrastructure.Utilities.Errors;
 using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading;
@@ -15,6 +17,7 @@ namespace EvoEvents.Business.Reservations.Handlers
     public class UnregisterUserCommandHandler : IRequestHandler<UnregisterUserCommand, bool>
     {
         public EvoEventsContext _context;
+        private Event _event;
 
         public UnregisterUserCommandHandler(EvoEventsContext context)
         {
@@ -37,25 +40,32 @@ namespace EvoEvents.Business.Reservations.Handlers
                 .Select(u => u.Id)
                 .FirstOrDefault();
 
-            var reservation = _context.Reservations.Where(r => r.UserId == userId && r.EventId == command.EventId).SingleOrDefault();
+            var reservation = _event.Reservations.Where(r => r.UserId == userId || r.AccompanyingPersonId == userId).SingleOrDefault();
 
             if (reservation is null)
             {
                 throw new CustomException(ErrorCode.Reservation_NotFound, ReservationErrorMessage.ReservationNotFound);
             }
 
-            _context.Reservations.Remove(reservation);
+            if(reservation.AccompanyingPersonId == userId)
+            {
+                reservation.AccompanyingPersonId = null;
+                _context.Reservations.Update(reservation);
+            }
+            else 
+            {
+                _context.Reservations.Remove(reservation);
+            }
         }
 
         private void ValidateEvent(UnregisterUserCommand command)
         {
-            var _event = _context.Events.SingleOrDefault(e => e.Id == command.EventId);
+            _event = _context.Events.Include(e => e.Reservations).SingleOrDefault(e => e.Id == command.EventId);
 
             if (_event is null)
             {
                 throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
             }
-
             if (_event.ToDate  < DateTime.UtcNow)
             {
                 throw new CustomException(ErrorCode.Reservation_CannotUnregisterToPastEvents, ReservationErrorMessage.CannotUnregisterToPastEvents);

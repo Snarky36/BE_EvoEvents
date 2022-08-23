@@ -1,5 +1,4 @@
 ﻿using EvoEvents.API.Requests.Events;
-using EvoEvents.Business.Addresses.Models;
 using EvoEvents.Business.Events;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
@@ -11,7 +10,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace EvoEvents.UnitTests.Business.Events.Extensions
 {
@@ -55,7 +53,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                         Id = 1,
                         UserId = 14,
                         EventId = 1,
-                        AccompanyingPersonEmail = "123@123.com"
+                        AccompanyingPersonId = 1
                     }
                 }
             };

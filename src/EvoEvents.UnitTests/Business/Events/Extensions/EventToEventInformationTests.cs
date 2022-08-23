@@ -69,6 +69,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     Country = Country.Italia
                 });
             eventInformation.EventImage.Should().Equal(SetupFile().FileToByteArray());
+            eventInformation.Attending.Should().Be(false);
         }
 
         private byte[] SetupByteArray()
