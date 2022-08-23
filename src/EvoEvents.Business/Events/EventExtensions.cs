@@ -57,6 +57,7 @@ namespace EvoEvents.Business.Events
                 Description = eventToTransform.Description,
                 EventType = eventToTransform.EventTypeId,
                 MaxNoAttendees = eventToTransform.MaxNoAttendees,
+                CurrentNoAttendees = eventToTransform.GetNoAttendees(),
                 Address = eventToTransform.Address.ToAddressInformation(),
                 FromDate = eventToTransform.FromDate,
                 ToDate = eventToTransform.ToDate,
