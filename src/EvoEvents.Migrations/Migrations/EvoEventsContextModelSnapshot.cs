@@ -30,7 +30,10 @@ namespace EvoEvents.Migrations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CityCountriesId")
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("EventId")
@@ -43,79 +46,14 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityCountriesId");
-
-                    b.HasIndex("EventId")
-                        .IsUnique();
-
-                    b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("EvoEvents.Data.Models.Addresses.CityCountries", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("CityId");
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("CityCountries");
+                    b.HasIndex("EventId")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CityId = 1,
-                            CountryId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CityId = 2,
-                            CountryId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CityId = 3,
-                            CountryId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CityId = 4,
-                            CountryId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CityId = 5,
-                            CountryId = 3
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CityId = 6,
-                            CountryId = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CityId = 7,
-                            CountryId = 2
-                        });
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Addresses.CityLookup", b =>
@@ -130,7 +68,7 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CityLookups");
+                    b.ToTable("CityLookups", (string)null);
 
                     b.HasData(
                         new
@@ -182,7 +120,7 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CountryLookups");
+                    b.ToTable("CountryLookups", (string)null);
 
                     b.HasData(
                         new
@@ -225,7 +163,7 @@ namespace EvoEvents.Migrations.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ApplicationVersions");
+                    b.ToTable("ApplicationVersions", (string)null);
 
                     b.HasData(
                         new
@@ -276,7 +214,7 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasIndex("EventTypeId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Events.EventTypeLookup", b =>
@@ -290,7 +228,7 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventTypeLookups");
+                    b.ToTable("EventTypeLookups", (string)null);
 
                     b.HasData(
                         new
@@ -339,7 +277,7 @@ namespace EvoEvents.Migrations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Users.User", b =>
@@ -368,7 +306,7 @@ namespace EvoEvents.Migrations.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Users.UserDetail", b =>
@@ -402,27 +340,10 @@ namespace EvoEvents.Migrations.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserDetails");
+                    b.ToTable("UserDetails", (string)null);
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Addresses.Address", b =>
-                {
-                    b.HasOne("EvoEvents.Data.Models.Addresses.CityCountries", "CityCountries")
-                        .WithMany()
-                        .HasForeignKey("CityCountriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EvoEvents.Data.Models.Events.Event", null)
-                        .WithOne("Address")
-                        .HasForeignKey("EvoEvents.Data.Models.Addresses.Address", "EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CityCountries");
-                });
-
-            modelBuilder.Entity("EvoEvents.Data.Models.Addresses.CityCountries", b =>
                 {
                     b.HasOne("EvoEvents.Data.Models.Addresses.CityLookup", "City")
                         .WithMany()
@@ -433,6 +354,12 @@ namespace EvoEvents.Migrations.Migrations
                     b.HasOne("EvoEvents.Data.Models.Addresses.CountryLookup", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EvoEvents.Data.Models.Events.Event", null)
+                        .WithOne("Address")
+                        .HasForeignKey("EvoEvents.Data.Models.Addresses.Address", "EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -455,7 +382,7 @@ namespace EvoEvents.Migrations.Migrations
             modelBuilder.Entity("EvoEvents.Data.Models.Reservations.Reservation", b =>
                 {
                     b.HasOne("EvoEvents.Data.Models.Events.Event", "Event")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -483,8 +410,6 @@ namespace EvoEvents.Migrations.Migrations
             modelBuilder.Entity("EvoEvents.Data.Models.Events.Event", b =>
                 {
                     b.Navigation("Address");
-
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("EvoEvents.Data.Models.Users.User", b =>
