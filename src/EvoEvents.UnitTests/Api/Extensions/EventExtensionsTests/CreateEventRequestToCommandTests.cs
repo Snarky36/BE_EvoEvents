@@ -30,15 +30,7 @@ namespace EvoEvents.UnitTests.Api.Extensions.EventExtensionsTests
                     FromDate = DateTime.UtcNow.AddDays(1),
                     ToDate = DateTime.UtcNow.AddDays(2)
                 },
-                AddressInformation = new AddressInformation
-                {
-                   Location = "abc",
-                   CityCountries = new CityCountries
-                   {
-                       CityId = (City)1,
-                       CountryId = (Country)1
-                   }
-                },
+                CityCountriesId = 1,
                 EventImage = SetupFile()
             };
 
@@ -50,8 +42,7 @@ namespace EvoEvents.UnitTests.Api.Extensions.EventExtensionsTests
             result.MaxNoAttendees.Should().Be(request.MaxNoAttendees);
             result.FromDate.Should().Be(request.DateRangeModel.FromDate);
             result.ToDate.Should().Be(request.DateRangeModel.ToDate);
-            result.CityCountries.CityId.Should().Be(request.AddressInformation.CityCountries.CityId);
-            result.CityCountries.CountryId.Should().Be(request.AddressInformation.CityCountries.CountryId);
+            result.CityCountriesId.Should().Be(request.CityCountriesId);
             result.EventImage.Should().Equal(request.EventImage.FileToByteArray());
         }
 

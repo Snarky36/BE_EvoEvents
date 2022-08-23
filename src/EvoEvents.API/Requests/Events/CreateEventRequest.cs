@@ -18,7 +18,7 @@ namespace EvoEvents.API.Requests.Events
         public IFormFile EventImage { get; set; }
         public string Location { get; set; }
         public DateRangeModel DateRangeModel { get; set; }
-        public AddressInformation AddressInformation { get; set; }
+        public int CityCountriesId { get; set; }
     }
 
     public class CreateEventRequestValidator : AbstractValidator<CreateEventRequest>
@@ -44,8 +44,8 @@ namespace EvoEvents.API.Requests.Events
             RuleFor(x => x.DateRangeModel)
                 .NotEmpty()
                 .SetValidator(new DateRangeModelValidator());
-            RuleFor(x => x.AddressInformation)
-                .SetValidator(new AddressInformationValidator());
+            RuleFor(x => x.CityCountriesId)
+                .GreaterThan(0).WithMessage(AddressErrorMessage.InvalidCityCountryId);
             RuleFor(e => e.EventImage)
                 .SetValidator(new ImageValidator());
         }
@@ -61,17 +61,6 @@ namespace EvoEvents.API.Requests.Events
             RuleFor(x => x.Length)
                 .LessThan(5 * 1024 * 1024)
                 .WithMessage(EventErrorMessage.FileSizeTooLarge);
-        }
-    }
-
-    public class AddressInformationValidator : AbstractValidator<AddressInformation>
-    {
-        public AddressInformationValidator()
-        {
-            RuleFor(x => x.CityCountries.CityId)
-                .IsInEnum();
-            RuleFor(x => x.CityCountries.CountryId)
-                .IsInEnum();
         }
     }
 }

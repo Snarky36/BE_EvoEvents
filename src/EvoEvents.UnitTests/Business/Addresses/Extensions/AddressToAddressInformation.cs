@@ -22,12 +22,21 @@ namespace EvoEvents.UnitTests.Business.Addresses.Extensions
             _address = new Address
             {
                 Location = "Strada Bisericii Sud",
+                CityCountriesId = 1,
                 CityCountries = new CityCountries
                 {
-                    CityId = (City)1,
-                    CountryId = (Country)2
+                    City = new CityLookup
+                    {
+                        Id = (City)1,
+                        Name = "Sibiu"
+                    },
+                    Country = new CountryLookup
+                    {
+                        Id = (Country)1,
+                        Name = "Romania"
+                    }
                 }
-            };
+            };  
         }
         [Test]
         public void ShouldReturnCorrectAddressInformation()
@@ -38,11 +47,8 @@ namespace EvoEvents.UnitTests.Business.Addresses.Extensions
                 new AddressInformation
                 {
                     Location = _address.Location,
-                    CityCountries = new CityCountries
-                    {
-                        CityId = (City)1,
-                        CountryId = (Country)2
-                    }
+                    City = "Sibiu",
+                    Country = "Romania"
                 });
         }
     }

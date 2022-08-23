@@ -116,7 +116,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Reservations = new List<Reservation>()
                 }
             };
-
+	    _context.Setup(c => c.CityCountries).ReturnsDbSet(new List<CityCountries> { });
+            _context.Setup(c => c.Addresses).ReturnsDbSet(new List<Address> { });
             _context.Setup(c => c.Events).ReturnsDbSet(events);
         }
 
@@ -129,13 +130,9 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
+                CityCountriesId = 2,
                 FromDate=_fromDate,
                 ToDate = _toDate,
-                CityCountries = new CityCountries
-                {
-                    CityId = (City)2,
-                    CountryId = (Country)1
-                },
                 
                 EventImage = SetupFile().FileToByteArray()
             };

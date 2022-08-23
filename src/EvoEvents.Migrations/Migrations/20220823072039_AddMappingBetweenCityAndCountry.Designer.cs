@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvoEvents.Migrations.Migrations
 {
     [DbContext(typeof(EvoEventsContext))]
-    [Migration("20220822122633_AddMappingBetweenCityAndCountry")]
+    [Migration("20220823072039_AddMappingBetweenCityAndCountry")]
     partial class AddMappingBetweenCityAndCountry
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -8,9 +8,11 @@ namespace EvoEvents.Business.Addresses
         public static AddressInformation ToAddressInformation(this Address address)
         {
             return new AddressInformation
-            {
+            {   
                 Location = address.Location,
-                CityCountries = address.CityCountries
+                Country = address.CityCountries.Country.Name,
+                City = address.CityCountries.City.Name
+               
             };
         }
     }

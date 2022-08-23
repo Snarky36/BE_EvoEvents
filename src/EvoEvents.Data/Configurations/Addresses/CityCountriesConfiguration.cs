@@ -6,9 +6,9 @@ using System.Collections.Generic;
 namespace EvoEvents.Data.Configurations.Addresses
 {
     public class CityCountriesConfiguration : IEntityTypeConfiguration<CityCountries>
-    {
+    {   
         public void Configure(EntityTypeBuilder<CityCountries> builder)
-        {
+        {   
             List<CityCountries> cityCountriesList = new List<CityCountries>
             {
                 new CityCountries

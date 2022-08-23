@@ -38,7 +38,7 @@ namespace EvoEvents.API.Requests.Events
                 Name = request.Name,
                 Description = request.Description.NullIfEmpty(),
                 MaxNoAttendees = request.MaxNoAttendees,
-                CityCountries = request.AddressInformation.CityCountries,
+                CityCountriesId = request.CityCountriesId,
                 EventImage = request.EventImage.FileToByteArray(),
                 Location = request.Location,
                 FromDate = request.DateRangeModel.FromDate.ToUniversalTime(),

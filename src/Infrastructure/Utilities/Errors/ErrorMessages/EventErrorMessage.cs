@@ -29,6 +29,7 @@
         public static readonly string FromDateGraterThenToDate = "Ending date can't be before the starting date";
 
         public static readonly string EventAlreadyCreated = "This event was already created";
-        
+
+        public static readonly string AddressMappingInvalid = "This city does not exist in this country";
     }
 }

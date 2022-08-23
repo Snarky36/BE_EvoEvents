@@ -1,6 +1,7 @@
 ﻿using EvoEvents.API.Controllers;
 using EvoEvents.API.Requests.Events;
 using EvoEvents.API.Shared.Models;
+using EvoEvents.Business.Addresses.Models;
 using EvoEvents.Business.Events.Commands;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
@@ -72,6 +73,8 @@ namespace EvoEvents.UnitTests.Api.Controllers.EventControllerTests
                     FromDate = DateTime.UtcNow.AddDays(1),
                     ToDate = DateTime.UtcNow.AddDays(2)
                 },
+                Location = "Strada Bisericii Sud2",
+                CityCountriesId = 2,
                 EventImage = SetupFile()
             };
         }
