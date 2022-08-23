@@ -2,7 +2,7 @@
 
 namespace EvoEvents.Data.Models.Addresses
 {
-    public class CityCountries
+    public class CityCountry
     {   
         public int Id { get; set; }
         public City CityId { get; set; }

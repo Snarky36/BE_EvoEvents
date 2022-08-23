@@ -41,7 +41,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     {
                         Location = "Strada Bisericii Sud",
                         CityCountriesId = 2,
-                        CityCountries = new CityCountries
+                        CityCountries = new CityCountry
                         {
                             City = new CityLookup
                             {

@@ -42,7 +42,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
-                        CityCountries = new CityCountries
+                        CityCountries = new CityCountry
                         {
                             CityId = (City)1,
                             CountryId = (Country)2
@@ -59,7 +59,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
-                        CityCountries = new CityCountries
+                        CityCountries = new CityCountry
                         {
                             CityId = (City)2,
                             CountryId = (Country)1

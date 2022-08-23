@@ -23,7 +23,7 @@ namespace EvoEvents.UnitTests.Business.Addresses.Extensions
             {
                 Location = "Strada Bisericii Sud",
                 CityCountriesId = 1,
-                CityCountries = new CityCountries
+                CityCountries = new CityCountry
                 {
                     City = new CityLookup
                     {

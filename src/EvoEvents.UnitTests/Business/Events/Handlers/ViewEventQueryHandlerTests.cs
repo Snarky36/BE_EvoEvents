@@ -99,7 +99,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     {
                         Location = "Strada Bisericii Sud",
                         CityCountriesId = 2,
-                        CityCountries = new CityCountries
+                        CityCountries = new CityCountry
                         {
                             City = new CityLookup
                             {

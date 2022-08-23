@@ -7,6 +7,6 @@
         public string Location { get; set; }
         public int CityCountriesId { get; set; }
 
-        public CityCountries CityCountries{ get; set; }
+        public CityCountry CityCountries{ get; set; }
     }
 }
