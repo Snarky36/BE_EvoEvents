@@ -7,5 +7,6 @@
         public static readonly string ReservationNotFound = "Reservation was not found";
         public static readonly string AccompanyingPersonAlreadyRegistered = "Accompanying person is already registered to this event";
         public static readonly string CannotUnregisterToPastEvents = "You can not unregister to past events";
+        public static readonly string CannotRegisterToPastEvents = "You can not register to past events";
     }
 }

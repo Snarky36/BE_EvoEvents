@@ -52,7 +52,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     {
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     }
                 },
                 new Event
@@ -66,7 +66,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     {
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     }
                 }
             };

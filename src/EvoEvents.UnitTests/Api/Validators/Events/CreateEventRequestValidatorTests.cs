@@ -35,7 +35,7 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
                 City = City.Milano,
-                Country = Country.Italia,
+                Country = Country.Italy,
                 DateRangeModel = new DateRangeModel
                 {
                     FromDate = DateTime.Now.AddDays(1),

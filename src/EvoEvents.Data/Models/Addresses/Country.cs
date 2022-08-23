@@ -3,7 +3,7 @@
     public enum Country
     {
         Romania = 1, 
-        Germania = 2, 
-        Italia = 3
+        Germany = 2, 
+        Italy = 3
     }
 }

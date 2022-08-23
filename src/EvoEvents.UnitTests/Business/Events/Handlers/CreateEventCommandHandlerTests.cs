@@ -86,7 +86,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     {
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
@@ -108,7 +108,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     {
                         Location = "Strada Bisericii Sud2",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
@@ -132,7 +132,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 City = City.Milano,
                 FromDate = _fromDate,
                 ToDate = _toDate,
-                Country = Country.Italia,
+                Country = Country.Italy,
                 EventImage = SetupFile().FileToByteArray()
             };
         }

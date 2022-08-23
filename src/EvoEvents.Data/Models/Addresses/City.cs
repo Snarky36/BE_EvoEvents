@@ -7,7 +7,7 @@
         Bistrita = 3,
         Frankfurt = 4, 
         Milano = 5,
-        Roma = 6, 
+        Rome = 6, 
         Hamburg = 7
     }
 }

@@ -26,7 +26,7 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
                 City = City.Milano,
-                Country = Country.Italia,
+                Country = Country.Italy,
                 FromDate = DateTime.Now.AddDays(1),
                 ToDate = DateTime.Now.AddDays(2),
                 EventImage = SetupFile().FileToByteArray()

@@ -23,7 +23,7 @@ namespace EvoEvents.UnitTests.Business.Addresses.Extensions
             {
                 Location = "Strada Bisericii Sud",
                 CityId = City.Milano,
-                CountryId = Country.Italia
+                CountryId = Country.Italy
             };
         }
         [Test]

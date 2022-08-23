@@ -66,7 +66,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 {
                     Location = "Strada Bisericii Sud",
                     City = City.Milano,
-                    Country = Country.Italia
+                    Country = Country.Italy
                 });
             result.FromDate.Should().Be(_fromDate);
             result.ToDate.Should().Be(_toDate);
@@ -99,7 +99,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     {
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,

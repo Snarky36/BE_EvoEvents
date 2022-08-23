@@ -61,7 +61,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             result.Items.First().EventType.Should().Be(EventType.Movie);
             result.Items.First().MaxNoAttendees.Should().Be(10);
             result.Items.First().Address.City.Should().Be(City.Milano);
-            result.Items.First().Address.Country.Should().Be(Country.Italia);
+            result.Items.First().Address.Country.Should().Be(Country.Italy);
             result.Items.First().Address.Location.Should().Be("Strada Bisericii Sud");
             result.Items.First().FromDate.Should().Be(_fromDate);
             result.Items.First().ToDate.Should().Be(_toDate);
@@ -97,7 +97,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     {
                         Location = "Strada Bisericii Sud",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
@@ -119,7 +119,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     {
                         Location = "Strada Bisericii Sud2",
                         CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CountryId = Country.Italy
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,

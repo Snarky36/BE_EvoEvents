@@ -104,6 +104,8 @@ namespace EvoEvents.UnitTests.Business.Reservations.Handlers
                         Name = EventType.Movie.ToString()
                     },
                     MaxNoAttendees = 10,
+                    FromDate = DateTime.UtcNow.AddDays(2),
+                    ToDate = DateTime.UtcNow.AddDays(5),
                     Reservations = new List<Reservation>()
                 }
             };

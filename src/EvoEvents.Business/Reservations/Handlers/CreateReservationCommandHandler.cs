@@ -10,6 +10,7 @@ using Infrastructure.Utilities.Errors;
 using Infrastructure.Utilities.Errors.ErrorMessages;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -64,6 +65,10 @@ namespace EvoEvents.Business.Reservations.Handlers
             if (_event is null)
             {
                 throw new CustomException(ErrorCode.Event_NotFound, EventErrorMessage.EventNotFound);
+            }
+            if (_event.ToDate < DateTime.UtcNow)
+            {
+                throw new CustomException(ErrorCode.Reservation_CannotRegisterToPastEvents, ReservationErrorMessage.CannotRegisterToPastEvents);
             }
         }
 
