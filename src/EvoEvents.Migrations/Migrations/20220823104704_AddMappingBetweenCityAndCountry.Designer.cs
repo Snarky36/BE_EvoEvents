@@ -4,6 +4,7 @@ using EvoEvents.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvoEvents.Migrations.Migrations
 {
     [DbContext(typeof(EvoEventsContext))]
-    partial class EvoEventsContextModelSnapshot : ModelSnapshot
+    [Migration("20220823104704_AddMappingBetweenCityAndCountry")]
+    partial class AddMappingBetweenCityAndCountry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

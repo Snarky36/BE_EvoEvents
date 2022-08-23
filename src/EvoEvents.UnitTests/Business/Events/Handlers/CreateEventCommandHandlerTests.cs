@@ -52,7 +52,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         [Test]
         public async Task WhenEventIsNew_ShouldCallSaveChangesAsync()
         {
-            _command.Name = "EvoEvent3";
+            _command.Name = "EvoEvent7";
             var result = await _handler.Handle(_command, new CancellationToken());
             _context.Verify(m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         }
@@ -69,6 +69,23 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
 
         private void SetupContext()
         {
+            _context.Setup(c => c.CityCountries).ReturnsDbSet(new List<CityCountry> {
+                new CityCountry
+                {   Id = 1,
+                    City = new CityLookup
+                    {
+                        Id = (City)1,
+                        Name = "Sibiu"
+                    },
+                    Country = new CountryLookup
+                    {
+                        Id = (Country)1,
+                        Name = "Romania"
+                    }
+                }
+            });
+
+            _context.Setup(c => c.Addresses).ReturnsDbSet(new List<Address> { });
             var events = new List<Event>
             {
                new Event
@@ -85,8 +102,20 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
-                        CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CityCountriesId = 1,
+                        CityCountries = new CityCountry
+                        {
+                            City = new CityLookup
+                            {
+                                Id = (City)1,
+                                Name = "Sibiu"
+                            },
+                            Country = new CountryLookup
+                            {
+                                Id = (Country)1,
+                                Name = "Romania"
+                            }
+                        }
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
@@ -107,8 +136,20 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud2",
-                        CityId = City.Milano,
-                        CountryId = Country.Italia
+                        CityCountriesId = 1,
+                        CityCountries = new CityCountry
+                        {
+                            City = new CityLookup
+                            {
+                                Id = (City)1,
+                                Name = "Sibiu"
+                            },
+                            Country = new CountryLookup
+                            {
+                                Id = (Country)1,
+                                Name = "Romania"
+                            }
+                        }
                     },
                     FromDate = _fromDate,
                     ToDate = _toDate,
@@ -116,8 +157,6 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Reservations = new List<Reservation>()
                 }
             };
-	    _context.Setup(c => c.CityCountries).ReturnsDbSet(new List<CityCountries> { });
-            _context.Setup(c => c.Addresses).ReturnsDbSet(new List<Address> { });
             _context.Setup(c => c.Events).ReturnsDbSet(events);
         }
 
@@ -130,7 +169,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
-                CityCountriesId = 2,
+                CityCountriesId = 1,
                 FromDate=_fromDate,
                 ToDate = _toDate,
                 

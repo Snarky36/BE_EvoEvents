@@ -36,8 +36,21 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 Address = new Address
                 {
                     Location = "Strada Bisericii Sud",
-                    CityId = City.Milano,
-                    CountryId = Country.Italia
+                    CityCountriesId = 1,
+                    CityCountries = new CityCountry
+                    {
+                        City = new CityLookup
+                        {
+                            Id = (City)1,
+                            Name = "Sibiu"
+                        },
+                        Country = new CountryLookup
+                        {
+                            Id = (Country)1,
+                            Name = "Romania"
+                        }
+
+                    }
                 },
                 Image = SetupFile().FileToByteArray(),
                 Reservations = new List<Reservation>
