@@ -51,6 +51,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
         private void SetupContext()
         {   
             _context.Setup(c => c.Events).ReturnsDbSet(new List<Event> { });
+            _context.Setup(c => c.CityCountries).ReturnsDbSet(new List<CityCountries> { });
+            _context.Setup(c => c.Addresses).ReturnsDbSet(new List<Address> { });
         }
 
         private void SetupRequest()
@@ -62,11 +64,7 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
                 Location = "Strada Bisericii Sud",
-                CityCountries = new CityCountries
-                {
-                    CityId = (City)2,
-                    CountryId = (Country)1
-                },
+                CityCountriesId = 2,
                 FromDate = DateTime.Now.AddDays(1),
                 ToDate = DateTime.Now.AddDays(2),
                 

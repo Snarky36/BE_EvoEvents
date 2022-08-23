@@ -39,11 +39,21 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
+                        CityCountriesId = 2,
                         CityCountries = new CityCountries
                         {
-                            CityId = (City)2,
-                            CountryId = (Country)1
-                        }
+                            City = new CityLookup
+                            {
+                                Id = (City)1,
+                                Name = "Cluj"
+                            },
+                            Country = new CountryLookup
+                            {
+                                Id = (Country)1,
+                                Name = "Romania"
+                            }
+
+                        }   
                     },
                     Image = SetupFile().FileToByteArray()
                 }
@@ -66,11 +76,8 @@ namespace EvoEvents.UnitTests.Business.Events.Extensions
                 new AddressInformation
                 {
                     Location = "Strada Bisericii Sud",
-                    CityCountries = new CityCountries
-                    {
-                        CityId = (City)2,
-                        CountryId = (Country)1
-                    }
+                    City = "Cluj",
+                    Country = "Romania"
                 });
             eventInformation.EventImage.Should().Equal(SetupFile().FileToByteArray());
         }

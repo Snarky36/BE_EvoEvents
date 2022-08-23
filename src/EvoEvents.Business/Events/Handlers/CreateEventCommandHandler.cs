@@ -29,7 +29,7 @@ namespace EvoEvents.Business.Events.Handlers
         private void ValidateEvent(CreateEventCommand command)
         {
             var eventAlreadyExisting = _context.Events
-                .Any(e => e.Address.CityCountries == command.CityCountries &&
+                .Any(e => e.Address.CityCountriesId == command.CityCountriesId &&
                     e.Address.Location == command.Location &&
                     e.FromDate == command.FromDate &&
                     e.ToDate == command.ToDate &&
@@ -39,6 +39,16 @@ namespace EvoEvents.Business.Events.Handlers
             {
                 throw new CustomException(ErrorCode.Event_AlreadyCreated, EventErrorMessage.EventAlreadyCreated);
             }
+
+            if (!ValidateAddress(command))
+            {
+                throw new CustomException(ErrorCode.City_Country_InvalidMapping, AddressErrorMessage.InvalidCityCountryId);
+            }
+        }
+
+        private bool ValidateAddress(CreateEventCommand command)
+        {   return _context.CityCountries
+                .Any(e => e.Id == command.CityCountriesId);
         }
 
         private void AddEvent(CreateEventCommand command)

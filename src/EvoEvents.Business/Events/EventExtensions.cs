@@ -4,6 +4,7 @@ using EvoEvents.Business.Events.Models;
 using EvoEvents.Data.Models.Addresses;
 using EvoEvents.Data.Models.Events;
 using EvoEvents.Data.Models.Users;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace EvoEvents.Business.Events
@@ -20,7 +21,7 @@ namespace EvoEvents.Business.Events
                 MaxNoAttendees = command.MaxNoAttendees,
                 Address = new Address
                 {
-                    CityCountries = command.CityCountries,
+                    CityCountriesId = command.CityCountriesId,
                     Location = command.Location
                 },
                 FromDate = command.FromDate,
@@ -31,7 +32,10 @@ namespace EvoEvents.Business.Events
 
         public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events)
         {
-            return events.Select(e => new EventInformation
+            return events.Include(e=>e.Address).ThenInclude(e=>e.CityCountries).ThenInclude(e => e.City)
+                .Include(e => e.Address).ThenInclude(e => e.CityCountries).ThenInclude(e => e.Country)
+                .Include(e=>e.Reservations)
+                .Select(e => new EventInformation
             {
                 Id = e.Id,
                 Name = e.Name,
@@ -47,7 +51,10 @@ namespace EvoEvents.Business.Events
 
         public static IQueryable<EventInformation> ToEventInformation(this IQueryable<Event> events, int descriptionMaxLength)
         {
-            return events.Select(e => new EventInformation
+            return events.Include(e => e.Address).ThenInclude(e => e.CityCountries).ThenInclude(e => e.City)
+                .Include(e => e.Address).ThenInclude(e => e.CityCountries).ThenInclude(e => e.Country)
+                .Include(e => e.Reservations)
+                .Select(e => new EventInformation
             {
                 Id = e.Id,
                 Name = e.Name,

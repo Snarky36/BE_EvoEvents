@@ -15,6 +15,6 @@ namespace EvoEvents.Business.Events.Commands
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public byte[] EventImage {get; set; }
-        public CityCountries CityCountries { get; set; }
+        public int CityCountriesId { get; set; }
     }
 }

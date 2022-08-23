@@ -34,15 +34,8 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
                 Description = "este fain",
                 EventType = (EventType)2,
                 MaxNoAttendees = 10,
-                AddressInformation = new AddressInformation
-                {
-                    Location = "abc",
-                    CityCountries = new CityCountries
-                    {
-                        CityId = (City)1,
-                        CountryId = (Country)1
-                    }
-                },
+                Location = "abc",
+                CityCountriesId = 1,
                 DateRangeModel = new DateRangeModel
                 {
                     FromDate = DateTime.Now.AddDays(1),
@@ -73,22 +66,6 @@ namespace EvoEvents.UnitTests.Api.Validators.Events
             _request.Location = PrimitiveGenerator.Alpha(51);
 
             _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.Location);
-        }
-
-        [Test]
-        public void WhenCityNotInEnum_ShouldReturnError()
-        {
-            _request.AddressInformation.CityCountries.CityId = (City)(-2);
-
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.AddressInformation.CityCountries.CityId);
-        }
-
-        [Test]
-        public void WhenCountryNotInEnum_ShouldReturnError()
-        {
-            _request.AddressInformation.CityCountries.CountryId = (Country)(-2);
-
-            _validator.TestValidate(_request).ShouldHaveValidationErrorFor(request => request.AddressInformation.CityCountries.CountryId);
         }
 
         [Test]

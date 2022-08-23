@@ -60,8 +60,8 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
             result.Items.First().Description.Should().Be(descriptionString.Substring(0, 150));
             result.Items.First().EventType.Should().Be(EventType.Movie);
             result.Items.First().MaxNoAttendees.Should().Be(10);
-            result.Items.First().Address.CityCountries.CityId.Should().Be(City.Cluj);
-            result.Items.First().Address.CityCountries.CountryId.Should().Be(Country.Romania);
+            result.Items.First().Address.City.Should().Be("Sibiu");
+            result.Items.First().Address.Country.Should().Be("Romania");
             result.Items.First().Address.Location.Should().Be("Strada Bisericii Sud");
             result.Items.First().FromDate.Should().Be(_fromDate);
             result.Items.First().ToDate.Should().Be(_toDate);
@@ -96,10 +96,20 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     Address = new Address
                     {
                         Location = "Strada Bisericii Sud",
+                        CityCountriesId = 1,
                         CityCountries = new CityCountries
                         {
-                            CityId = City.Cluj,
-                            CountryId = Country.Romania
+                            City = new CityLookup
+                            {
+                                Id = (City)1,
+                                Name = "Sibiu"
+                            },
+                            Country = new CountryLookup
+                            {
+                                Id = (Country)1,
+                                Name = "Romania"
+                            }
+
                         }
                     },
                     FromDate = _fromDate,
@@ -120,11 +130,21 @@ namespace EvoEvents.UnitTests.Business.Events.Handlers
                     MaxNoAttendees = 15,
                     Address = new Address
                     {
-                        Location = "Strada Bisericii Sud2",
+                        Location = "Strada Bisericii Sud",
+                        CityCountriesId = 2,
                         CityCountries = new CityCountries
                         {
-                            CityId = City.Cluj,
-                            CountryId = Country.Romania
+                            City = new CityLookup
+                            {
+                                Id = (City)1,
+                                Name = "Cluj"
+                            },
+                            Country = new CountryLookup
+                            {
+                                Id = (Country)1,
+                                Name = "Romania"
+                            }
+
                         }
                     },
                     FromDate = _fromDate,

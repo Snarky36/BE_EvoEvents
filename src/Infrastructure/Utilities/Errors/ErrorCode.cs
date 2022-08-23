@@ -11,6 +11,8 @@
         Event_CapacityExceeded = 202,
 
         Reservation_UserAlreadyRegistered = 300,
-        Reservation_NotFound = 301
+        Reservation_NotFound = 301,
+
+        City_Country_InvalidMapping = 400
     }
 }
